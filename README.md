@@ -2,7 +2,7 @@
 KarinDB - a fast embeddable key/value database
 ==============================================
 
-<div style="text-align:right"><img src ="/doc/logo.jpg" /></div>
+<div style="text-align:right"><img src ="/doc/logo.jpg" width="48" /></div>
 
 KarinDB is a key/value database library specifically designed for fast simultaneous operation of tens to hundreds of instances in a memory-constrained environment.
 
