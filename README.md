@@ -1,17 +1,20 @@
-hashdb - a fast embeddable key/value database
-=============================================
 
-HashDB is a key/value database library specifically designed for fast simultaneous operation of tens to hundreds of instances in a memory-constrained environment.
+KarinDB - a fast embeddable key/value database
+==============================================
 
-HashDB provides the following:
+<div style="text-align:right"><img src ="/doc/logo.jpg" /></div>
+
+KarinDB is a key/value database library specifically designed for fast simultaneous operation of tens to hundreds of instances in a memory-constrained environment.
+
+KarinDB provides the following:
 
 * an embeddable key/value database library written in C++ with a modern C++ API
 * fast storage and retrieval - the database is based on the [linear hashing algorithm](https://en.wikipedia.org/wiki/Linear_hashing)
-* cross platform - the database has been thoroughly tested on Windows, Linux, and MacOS X
+* cross platform - the database has been thoroughly tested on Windows, Linux, and MacOS X (but please see the status below)
 * open source with a very permissive [MIT-like open source license](LICENSE.txt)
 * code includes an extensive test suite and a modular benchmarking application
 
-The HashDB database currently does not provide many of the features that might be expected in a traditional high-level database such as client/server access,
+The KarinDB database currently does not provide many of the features that might be expected in a traditional high-level database such as client/server access,
 a query language, transactions or multi-threaded access to a single database instance.
 
 Status: Windows build is now complete, but new build scripts for POSIX platforms are not yet done.
@@ -51,17 +54,27 @@ int main(int argc, char* argv)
 }
 ```
 
+KarinDB branches
+----------------
 
-Compiling HashDB with Visual Studio 2010
-----------------------------------------
+There are two main KarinDB branches:
 
-HashDB can be compiled with Visual Studio 2010 or newer. If you need to compile HashDB with a newer version of Visual Studio, 
-just let Visual Studio perform the automatic upgrade of HashDB project files and choose the appropriate toolset when compiling the 
+* master branch - for development
+* stable - for stable versions.
+
+Please use the stable version for production.
+
+
+Compiling KarinDB with Visual Studio 2010 or newer
+--------------------------------------------------
+
+KarinDB can be compiled with Visual Studio 2010 or newer. If you need to compile KarinDB with a newer version of Visual Studio, 
+just let Visual Studio perform the automatic upgrade of KarinDB project files and choose the appropriate toolset when compiling the 
 boost libraries.
 
 ### 1. Installing boost
 
-If your project already uses boost libraries, you must compile HashDB with the same boost variant.
+If your project already uses boost libraries, you must compile KarinDB with the same boost variant.
 Otherwise, you may either download precompiled boost binaries or compile boost from sources.
 
 If you have WGET and UNZIP installed on your system, you can download and compile boost with the included batch file `fetch_compile_boost.bat`:
@@ -79,7 +92,7 @@ The option `address-model` should be set to either 32 or 64 depending on your co
 ### 2. Configuring path to boost headers and libraries
 
 If you use boost version different than 1.62 or if you do not follow the above directory conventions, you need to configure path to boost headers and libraries:
-* In Visual Studio 2010, open the solution build\VS2010\HashDB.sln
+* In Visual Studio 2010, open the solution build\VS2010\KarinDB.sln
 * Choose your target platform (Win32 or x64) in the Solution Platforms drop-down list.
 * Click on "Property Manager" on the bottom of the left pane (you may need to enable advanced features if you are using VS 2010 Express Edition)
 * Expand the "tool" project until you find a property sheet called "boost32" or "boost64" (depending on the chosen address model), and double-click it.
@@ -106,25 +119,8 @@ Now you can build the project. Check that all the unit tests succeeded in the bu
 * Compile and run.
 
 
-Compiling HashDB on Linux and MacOS X
+Compiling KarinDB on Linux and MacOS X
 -------------------------------------
 
-TODO: The build scripts for POSIX platforms are not yet done.
-
-### 1. Optional step: Installing the boost library
-
-If your project uses boost, you must compile HashDB with the same boost variant.
-Otherwise you may either use 'system' boost or compile boost from sources.
-
-To compile HashDB with boost compiled from sources, do the following:
-
-* Download boost 1.62 or newer and unpack it.
-* Create directory for the target, e.g. "deps/boost_1_62_0"
-* Run `./bootstrap.sh --prefix=..../deps/boost_1_62_0`
-* Run `./b2 --without-mpi --without-python --without-graph --without-graph_parallel --without-wave install`
-
-### 2. Configuring HashDB
-
-* Run `./configure.sh` in the root of the HashDB project
-
-(Unfinished.)
+Unfortulately, the original CMake scripts that build KarinDB on Linux and MacOS X depend on proprietary macros that cannot be published, so there is no build support
+for these plaforms at this time.
