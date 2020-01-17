@@ -76,13 +76,13 @@ namespace tool {
 		}
 
 		// Directory.
-		const boost::string_ref dirOption = arguments.optionRef("--dir");
+		const std::string_view dirOption = arguments.optionRef("--dir");
 		if (! dirOption.empty()) {
 			dir_ = dirOption.to_string();
 		}
 
 		// Database name.
-		const boost::string_ref dbOption = arguments.optionRef("--db");
+		const std::string_view dbOption = arguments.optionRef("--db");
 		if (! dbOption.empty()) {
 			databasePath_ = dir_ / dbOption.to_string();
 		}

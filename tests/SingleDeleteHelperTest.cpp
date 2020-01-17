@@ -33,7 +33,7 @@ using namespace kerio::hashdb;
 
 void SingleDeleteHelperTest::testSingleDeleteHelper()
 {
-	const boost::string_ref expectedKey("a");
+	const std::string_view expectedKey("a");
 	const partNum_t expectedPartNum = 0;
 	
 	boost::scoped_ptr<IDeleteBatch> singleDelete(new SingleDelete(expectedKey, expectedPartNum));

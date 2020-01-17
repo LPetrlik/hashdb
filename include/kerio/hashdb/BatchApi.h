@@ -33,7 +33,7 @@
 // them at all, other implementations may store them to existing buffers etc.
 
 #pragma once
-#include <boost/utility/string_ref.hpp>
+#include <string_view>
 #include <istream>
 #include <kerio/hashdb/Types.h>
 
@@ -69,7 +69,7 @@ namespace hashdb {
 		// Sets the value at the given index. Returns true if the value is successfully
 		// set, returns false otherwise (e.g. if the value does not fit into a buffer).
 		// This method is called for database records that are stored on a single database page.
-		virtual bool setValueAt(size_t index, const boost::string_ref& value) = 0;
+		virtual bool setValueAt(size_t index, const std::string_view& value) = 0;
 
 		// Sets the large value at the given index. Returns true if the value is successfully
 		// set, returns false otherwise (e.g. if the value does not fit into a buffer).

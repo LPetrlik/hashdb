@@ -71,7 +71,7 @@ namespace hashdb {
 		return found;
 	}
 
-	bool DataPageCursor::find(const boost::string_ref& searchKey)
+	bool DataPageCursor::find(const std::string_view& searchKey)
 	{
 		const uint16_t numberOfRecords = pagePtr_->getNumberOfRecords();
 		bool found = false;
@@ -119,15 +119,15 @@ namespace hashdb {
 		return pagePtr_->operator[](recordOffset) + 2;
 	}
 
-	boost::string_ref DataPageCursor::recordIdValue() const
+	std::string_view DataPageCursor::recordIdValue() const
 	{
 		const uint16_t recordOffset = this->recordOffset();
 		return pagePtr_->getBytes(recordOffset, recordIdSize(recordOffset));
 	}
 
-	boost::string_ref DataPageCursor::key() const
+	std::string_view DataPageCursor::key() const
 	{
-		boost::string_ref id = recordIdValue();
+		std::string_view id = recordIdValue();
 		id.remove_prefix(1); // key size (1)
 		id.remove_suffix(1); // part num (1)
 		return id;
@@ -144,9 +144,9 @@ namespace hashdb {
 		return pagePtr_->operator[](valueSizeOffset) | (pagePtr_->operator[](valueSizeOffset + 1) << 8);
 	}
 
-	boost::string_ref DataPageCursor::inlineValue() const
+	std::string_view DataPageCursor::inlineValue() const
 	{
-		boost::string_ref rv;
+		std::string_view rv;
 
 		const uint16_t recordOffset = this->recordOffset();
 		const uint16_t valueSize = inlineValueSize(recordOffset);
@@ -158,7 +158,7 @@ namespace hashdb {
 		return rv;
 	}
 
-	boost::string_ref DataPageCursor::inlineRecord() const
+	std::string_view DataPageCursor::inlineRecord() const
 	{
 		const uint16_t recordOffset = this->recordOffset();
 		const size_type recordIdSize = this->recordIdSize(recordOffset);

@@ -60,7 +60,7 @@ namespace hashdb {
 		return std::min(remainderSize, largestPartSize);
 	}
 
-	bool LargeValuePage::putValuePart(size_type& position, const boost::string_ref& value)
+	bool LargeValuePage::putValuePart(size_type& position, const std::string_view& value)
 	{
 		const size_type remainingPartSize = static_cast<size_type>(value.size()) - position;
 
@@ -79,7 +79,7 @@ namespace hashdb {
 
 		if (remainingPartSize > 0) {
 			const size_type getSize = partSize(remainingPartSize);
-			const boost::string_ref readPart = getBytes(HEADER_DATA_END_OFFSET, getSize);
+			const std::string_view readPart = getBytes(HEADER_DATA_END_OFFSET, getSize);
 			value.append(readPart.data(), readPart.size());
 		}
 

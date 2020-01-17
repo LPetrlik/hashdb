@@ -35,7 +35,7 @@ namespace hashdb {
 
 	class SingleDelete : public IDeleteBatch { // intentionally copyable
 	public:
-		SingleDelete(const boost::string_ref& key, partNum_t partNum)
+		SingleDelete(const std::string_view& key, partNum_t partNum)
 			: key_(key)
 			, partNum_(partNum)
 		{
@@ -62,7 +62,7 @@ namespace hashdb {
 
 
 	private:
-		const boost::string_ref key_;
+		const std::string_view key_;
 		const partNum_t partNum_; 
 	};
 

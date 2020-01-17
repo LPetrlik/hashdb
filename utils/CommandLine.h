@@ -25,6 +25,7 @@
  * copyright holder.
  */
 #pragma once
+#include <vector>
 
 namespace kerio {
 namespace hashdb {
@@ -33,17 +34,17 @@ namespace hashdb {
 	public:
 		CommandLine(int argc, char** argv);
 		
-		bool hasOption(boost::string_ref optionName);
-		boost::string_ref optionRef(boost::string_ref optionName);
-		bool optionUnsignedNumericValue(size_type& value, boost::string_ref optionName);
-		bool optionSignedNumericValue(int32_t& value, boost::string_ref optionName);
+		bool hasOption(std::string_view optionName);
+		std::string_view optionRef(std::string_view optionName);
+		bool optionUnsignedNumericValue(size_type& value, std::string_view optionName);
+		bool optionSignedNumericValue(int32_t& value, std::string_view optionName);
 
 		size_type count();
 
 		std::string listUnusedOptions() const;
 
 	private:
-		boost::string_ref findOption(boost::string_ref optionName);
+		std::string_view findOption(std::string_view optionName);
 
 	private:
 		const int argc_; 

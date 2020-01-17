@@ -36,7 +36,7 @@ namespace hashdb {
 		double seconds() const;
 
 	private:
-		boost::scoped_ptr<class StopWatchImpl> pimpl_;
+		std::unique_ptr<class StopWatchImpl> pimpl_;
 	};
 
 }; // namespace hashdb

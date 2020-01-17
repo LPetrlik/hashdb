@@ -72,8 +72,8 @@ namespace hashdb {
 		// Deleting from the database.
 		void freeLargeValuePages(const PageId& firstLargeValuePageId, size_type valueSize);
 		void removeRecord(DataPage& page, DataPageCursor cursor);
-		void removeSingleValue(SingleRequestCache& cache, const boost::string_ref& key, partNum_t partNum);
-		void removeAllParts(SingleRequestCache& cache, const boost::string_ref& key);
+		void removeSingleValue(SingleRequestCache& cache, const std::string_view& key, partNum_t partNum);
+		void removeAllParts(SingleRequestCache& cache, const std::string_view& key);
 
 		// Writing to the database.
 	private:
@@ -84,11 +84,11 @@ namespace hashdb {
 		size_type splitAddRecordOnOverflow(SingleRequestCache& cache, const RecordId& recordId, const DataPage::AddedValueRef& valueRef);
 
 	public:
-		void storeSingleValue(SingleRequestCache& cache, const boost::string_ref& key, partNum_t partNum, const boost::string_ref& value);
+		void storeSingleValue(SingleRequestCache& cache, const std::string_view& key, partNum_t partNum, const std::string_view& value);
 		size_type storeSingleValue(SingleRequestCache& cache, const IWriteBatch& writeBatch, size_t index);
 
 		// API methods.
-		std::vector<partNum_t> listParts(const boost::string_ref& key);
+		std::vector<partNum_t> listParts(const std::string_view& key);
 
 		bool fetch(IReadBatch& readBatch);
 		void remove(const IDeleteBatch& deleteBatch);

@@ -117,7 +117,7 @@ namespace {
 		return bitNumber;
 	}
 
-	uint32_t bucketForKey(unsigned buckets, const boost::string_ref& key)
+	uint32_t bucketForKey(unsigned buckets, const std::string_view& key)
 	{
 		const uint32_t highestBucket = buckets - 1;
 		const unsigned maskBits = highestBit(highestBucket) + 1;

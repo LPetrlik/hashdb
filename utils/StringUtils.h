@@ -28,7 +28,6 @@
 // StringUtils.h - string utilities.
 #pragma once
 #include <stdarg.h>
-#include <boost/format.hpp>
 #include <kerio/hashdb/Types.h>
 
 namespace kerio {
@@ -36,75 +35,26 @@ namespace hashdb {
 
 	std::string toHex(uint32_t num);
 
-	std::string formatMessage(const char *fmt);
-	
-	template <typename T1>
-	std::string formatMessage(const char *fmt, const T1& arg1)
-	{
-		boost::format formatter(fmt);
-		formatter % arg1;
-		return formatter.str();
-	}
+    template<typename ... Args>
+    std::string formatMessage(const char* format, Args... args)
+    {
+        if constexpr (sizeof... (Args) == 0) {
+            return format;
+        }
+        else {
+            const auto size = std::snprintf(nullptr, 0, format, args...);
+            std::string formatted(size + 1, '\0');
 
-	template <typename T1, typename T2>
-	std::string formatMessage(const char *fmt, const T1& arg1, const T2& arg2)
-	{
-		boost::format formatter(fmt);
-		formatter % arg1 % arg2;
-		return formatter.str();
-	}
+            std::snprintf(formatted.data(), formatted.size(), format, args...);
+            formatted.resize(size);
 
-	template <typename T1, typename T2, typename T3>
-	std::string formatMessage(const char *fmt, const T1& arg1, const T2& arg2, const T3& arg3)
-	{
-		boost::format formatter(fmt);
-		formatter % arg1 % arg2 % arg3;
-		return formatter.str();
-	}
+            return formatted;
+        }
+    }
 
-	template <typename T1, typename T2, typename T3, typename T4>
-	std::string formatMessage(const char *fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4)
-	{
-		boost::format formatter(fmt);
-		formatter % arg1 % arg2 % arg3 % arg4;
-		return formatter.str();
-	}
-
-	template <typename T1, typename T2, typename T3, typename T4, typename T5>
-	std::string formatMessage(const char *fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5)
-	{
-		boost::format formatter(fmt);
-		formatter % arg1 % arg2 % arg3 % arg4 % arg5;
-		return formatter.str();
-	}
-
-	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-	std::string formatMessage(const char *fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6)
-	{
-		boost::format formatter(fmt);
-		formatter % arg1 % arg2 % arg3 % arg4 % arg5 % arg6;
-		return formatter.str();
-	}
-
-	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-	std::string formatMessage(const char *fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7)
-	{
-		boost::format formatter(fmt);
-		formatter % arg1 % arg2 % arg3 % arg4 % arg5 % arg6 % arg7;
-		return formatter.str();
-	}
-
-	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-	std::string formatMessage(const char *fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8)
-	{
-		boost::format formatter(fmt);
-		formatter % arg1 % arg2 % arg3 % arg4 % arg5 % arg6 % arg7 % arg8;
-		return formatter.str();
-	}
-
-	void printJsonString(std::ostream& os, const boost::string_ref& s);
-	void printJsonNameValue(std::ostream& os, const boost::string_ref& name, const boost::string_ref& value);
-	void printJsonNameValue(std::ostream& os, const boost::string_ref& name, int value);
+	void printJsonString(std::ostream& os, const std::string_view& s);
+	void printJsonNameValue(std::ostream& os, const std::string_view& name, const std::string_view& value);
+	void printJsonNameValue(std::ostream& os, const std::string_view& name, int value);
 
 }; // namespace hashdb
 }; // namespace kerio

@@ -38,7 +38,7 @@ namespace benchmark {
 		virtual ~IDataProducer() { }
 	};
 
-	typedef boost::shared_ptr<IDataProducer> DataProducer;
+	typedef std::shared_ptr<IDataProducer> DataProducer;
 
 	DataProducer newNullDataProducer(const std::string& prefix);
 	DataProducer newInt32LittleEndianDataProducer(const std::string& prefix);

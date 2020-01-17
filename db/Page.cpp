@@ -77,19 +77,19 @@ namespace hashdb {
 		clearDirtyFlag();
 	}
 
-	void Page::putBytes(size_type index, boost::string_ref value)
+	void Page::putBytes(size_type index, std::string_view value)
 	{
 		RAISE_INTERNAL_ERROR_IF_ARG(index + value.size() > size_);
 		memcpy(mutableData() + index, value.data(), value.size());
 	}
 
-	boost::string_ref Page::getBytes(size_type index, size_type size) const
+	std::string_view Page::getBytes(size_type index, size_type size) const
 	{
 		RAISE_INTERNAL_ERROR_IF_ARG(index + size > size_);
-		return boost::string_ref(reinterpret_cast<const char*>(constData() + index), size);
+		return std::string_view(reinterpret_cast<const char*>(constData() + index), size);
 	}
 
-	bool Page::hasBytes(size_type index, boost::string_ref value) const
+	bool Page::hasBytes(size_type index, std::string_view value) const
 	{
 		RAISE_INTERNAL_ERROR_IF_ARG(index + value.size() > size_);
 		return memcmp(constData() + index, value.data(), value.size()) == 0;

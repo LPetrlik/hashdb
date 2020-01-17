@@ -79,5 +79,8 @@
     <ClInclude Include="..\..\..\utils\StopWatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Noncopyable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

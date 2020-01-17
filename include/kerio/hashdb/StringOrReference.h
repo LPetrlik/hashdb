@@ -28,8 +28,8 @@
 // StringOrReference.h - a sequence of bytes optionally managed by the class.
 #pragma once
 #include <string>
-#include <boost/utility/string_ref.hpp>
-#include <boost/variant.hpp>
+#include <string_view>
+#include <variant>
 #include <kerio/hashdb/Types.h>
 
 namespace kerio {
@@ -37,20 +37,21 @@ namespace hashdb {
 
 	class StringOrReference  { // intentionally copyable
 	public:
-		boost::string_ref getRef() const
+		std::string_view getRef() const
 		{
-			const boost::string_ref* myRef = boost::get<const boost::string_ref>(&value_);
-			return (myRef != NULL)? *myRef : *boost::get<const std::string>(&value_);
+            return std::visit([](const auto& arg) -> std::string_view {
+                    return arg;
+            }, value_);
 		}
 
 		size_type size() const
 		{
-			return static_cast<size_type>(getRef().size());
+			return getRef().size();
 		}
 
 		int which() const
 		{
-			return value_.which();
+			return value_.index();
 		}
 
 		// Copy the value.
@@ -59,29 +60,25 @@ namespace hashdb {
 			return StringOrReference(str);
 		}
 
-#if !defined( BOOST_NO_CXX11_RVALUE_REFERENCES )
         static StringOrReference copy(std::string &&str)
         {
             return StringOrReference(std::move(str));
         }
-#endif
 
 		// Reference the value.
-		static StringOrReference reference(const boost::string_ref& ref)
+		static StringOrReference reference(const std::string_view& ref)
 		{
 			return StringOrReference(ref);
 		}
 
 	private:
-		const boost::variant<const boost::string_ref, const std::string> value_;
+		const std::variant<const std::string_view, const std::string> value_;
 
 		explicit StringOrReference(const std::string& str) : value_(str) { }
 
-#if !defined( BOOST_NO_CXX11_RVALUE_REFERENCES )
         explicit StringOrReference(std::string &&str) : value_(std::move(str)) { }
-#endif
 
-        explicit StringOrReference(const boost::string_ref& ref) : value_(ref) { }
+        explicit StringOrReference(const std::string_view& ref) : value_(ref) { }
 	};
 
 }; // hashdb

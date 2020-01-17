@@ -70,7 +70,7 @@ namespace hashdb {
 		virtual void validate() const;
 
 		// Utilities for data access.
-		bool putValuePart(size_type& position, const boost::string_ref& value);
+		bool putValuePart(size_type& position, const std::string_view& value);
 		bool getValuePart(std::string& value, size_type valueSize) const;
 
 		// Large value chain traversal.

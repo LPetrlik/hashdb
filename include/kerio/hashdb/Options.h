@@ -27,7 +27,7 @@
 
 // Options.h - hashdb create/open database options and associated interfaces.
 #pragma once
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <kerio/hashdb/Types.h>
 
 namespace kerio {
@@ -54,11 +54,11 @@ namespace hashdb {
 	struct Options { // intentionally copyable
 
 		// Open database read-only in a single-threaded environment.
-		static Options readOnlySingleThreaded(boost::shared_ptr<ILogger> logger);
+		static Options readOnlySingleThreaded(std::shared_ptr<ILogger> logger);
 		static Options readOnlySingleThreaded();
 		
 		// Open database read-write in a single-threaded environment.
-		static Options readWriteSingleThreaded(boost::shared_ptr<ILogger> logger);
+		static Options readWriteSingleThreaded(std::shared_ptr<ILogger> logger);
 		static Options readWriteSingleThreaded();	
 
 		void validate() const;
@@ -95,7 +95,7 @@ namespace hashdb {
 		};
 		PageAllocator_t pageAllocatorType_; // Page allocator type. The default for single-threaded instances is SingleThreadedPageAllocatorType.
 
-		boost::shared_ptr<ILogger> logger_; // Logger. Default is NullLogger.
+		std::shared_ptr<ILogger> logger_; // Logger. Default is NullLogger.
 
 	private:
 		Options();

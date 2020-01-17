@@ -42,7 +42,7 @@ namespace benchmark {
 		virtual ~IDatabaseWrapper() { };
 	};
 
-	typedef boost::shared_ptr<IDatabaseWrapper> DatabaseWrapper;
+	typedef std::shared_ptr<IDatabaseWrapper> DatabaseWrapper;
 
 	class IDatabaseWrapperFactory {
 	public:
@@ -52,7 +52,7 @@ namespace benchmark {
 		virtual ~IDatabaseWrapperFactory() { };
 	};
 
-	typedef boost::shared_ptr<IDatabaseWrapperFactory> DatabaseWrapperFactory;
+	typedef std::shared_ptr<IDatabaseWrapperFactory> DatabaseWrapperFactory;
 
 }; // namespace benchmark
 }; // namespace hashdb

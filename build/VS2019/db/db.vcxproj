@@ -18,33 +18,113 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\helpers\helpers.vcxproj">
+      <Project>{9eb18608-e26b-45fa-ae9d-4330482f25ef}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\utils\utils.vcxproj">
+      <Project>{4e8a21af-2c11-4f14-aa37-8e03614e6032}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\db\BitmapPage.h" />
+    <ClInclude Include="..\..\..\db\BucketDataPage.h" />
+    <ClInclude Include="..\..\..\db\BucketHeaderPage.h" />
+    <ClInclude Include="..\..\..\db\DatabaseImpl.h" />
+    <ClInclude Include="..\..\..\db\DataPage.h" />
+    <ClInclude Include="..\..\..\db\DataPageCursor.h" />
+    <ClInclude Include="..\..\..\db\Environment.h" />
+    <ClInclude Include="..\..\..\db\HeaderPage.h" />
+    <ClInclude Include="..\..\..\db\Interfaces.h" />
+    <ClInclude Include="..\..\..\db\IteratorImpl.h" />
+    <ClInclude Include="..\..\..\db\IteratorPosition.h" />
+    <ClInclude Include="..\..\..\db\LargeValuePage.h" />
+    <ClInclude Include="..\..\..\db\MetaData.h" />
+    <ClInclude Include="..\..\..\db\NullLockManager.h" />
+    <ClInclude Include="..\..\..\db\OpenDatabase.h" />
+    <ClInclude Include="..\..\..\db\OpenFiles.h" />
+    <ClInclude Include="..\..\..\db\OverflowDataPage.h" />
+    <ClInclude Include="..\..\..\db\OverflowFilePageAllocator.h" />
+    <ClInclude Include="..\..\..\db\OverflowHeaderPage.h" />
+    <ClInclude Include="..\..\..\db\Page.h" />
+    <ClInclude Include="..\..\..\db\PagedFile.h" />
+    <ClInclude Include="..\..\..\db\PageId.h" />
+    <ClInclude Include="..\..\..\db\RecordId.h" />
+    <ClInclude Include="..\..\..\db\SimplePageAllocator.h" />
+    <ClInclude Include="..\..\..\db\SingleThreadedPageAllocator.h" />
+    <ClInclude Include="..\..\..\db\stdafx.h" />
+    <ClInclude Include="..\..\..\db\Vector.h" />
+    <ClInclude Include="..\..\..\db\Version.h" />
+    <ClInclude Include="..\..\..\include\kerio\hashdb\BatchApi.h" />
+    <ClInclude Include="..\..\..\include\kerio\hashdb\Constants.h" />
+    <ClInclude Include="..\..\..\include\kerio\hashdb\Exception.h" />
+    <ClInclude Include="..\..\..\include\kerio\hashdb\HashDB.h" />
+    <ClInclude Include="..\..\..\include\kerio\hashdb\Iterator.h" />
+    <ClInclude Include="..\..\..\include\kerio\hashdb\Options.h" />
+    <ClInclude Include="..\..\..\include\kerio\hashdb\Statistics.h" />
+    <ClInclude Include="..\..\..\include\kerio\hashdb\StringOrReference.h" />
+    <ClInclude Include="..\..\..\include\kerio\hashdb\Types.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\db\BitmapPage.cpp" />
+    <ClCompile Include="..\..\..\db\BucketHeaderPage.cpp" />
+    <ClCompile Include="..\..\..\db\DatabaseImpl.cpp" />
+    <ClCompile Include="..\..\..\db\DataPage.cpp" />
+    <ClCompile Include="..\..\..\db\DataPageCursor.cpp" />
+    <ClCompile Include="..\..\..\db\Environment.cpp" />
+    <ClCompile Include="..\..\..\db\HeaderPage.cpp" />
+    <ClCompile Include="..\..\..\db\IteratorImpl.cpp" />
+    <ClCompile Include="..\..\..\db\LargeValuePage.cpp" />
+    <ClCompile Include="..\..\..\db\MetaData.cpp" />
+    <ClCompile Include="..\..\..\db\OpenDatabase.cpp" />
+    <ClCompile Include="..\..\..\db\OpenFiles.cpp" />
+    <ClCompile Include="..\..\..\db\Options.cpp" />
+    <ClCompile Include="..\..\..\db\OverflowFilePageAllocator.cpp" />
+    <ClCompile Include="..\..\..\db\Page.cpp" />
+    <ClCompile Include="..\..\..\db\PagedFile.cpp" />
+    <ClCompile Include="..\..\..\db\PageId.cpp" />
+    <ClCompile Include="..\..\..\db\RecordId.cpp" />
+    <ClCompile Include="..\..\..\db\SimplePageAllocator.cpp" />
+    <ClCompile Include="..\..\..\db\SingleThreadedPageAllocator.cpp" />
+    <ClCompile Include="..\..\..\db\Statistics.cpp" />
+    <ClCompile Include="..\..\..\db\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4E8A21AF-2C11-4F14-AA37-8E03614E6032}</ProjectGuid>
+    <ProjectGuid>{3F879493-10A1-4592-B9BE-35F141CA8D65}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>utils</RootNamespace>
+    <RootNamespace>db</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -52,21 +132,25 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropSheet\hashdb_headers.props" />
+    <Import Project="..\PropSheet\root_headers.props" />
     <Import Project="..\PropSheet\boost32.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropSheet\hashdb_headers.props" />
+    <Import Project="..\PropSheet\root_headers.props" />
     <Import Project="..\PropSheet\boost64.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropSheet\hashdb_headers.props" />
+    <Import Project="..\PropSheet\root_headers.props" />
     <Import Project="..\PropSheet\boost32.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropSheet\hashdb_headers.props" />
+    <Import Project="..\PropSheet\root_headers.props" />
     <Import Project="..\PropSheet\boost64.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -77,6 +161,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -89,6 +174,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -103,6 +189,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -119,6 +206,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,37 +215,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\utils\Assert.cpp" />
-    <ClCompile Include="..\..\..\utils\CommandLine.cpp" />
-    <ClCompile Include="..\..\..\utils\ConfigUtils.cpp" />
-    <ClCompile Include="..\..\..\utils\MurmurHash3.cpp" />
-    <ClCompile Include="..\..\..\utils\MurmurHash3Adapter.cpp" />
-    <ClCompile Include="..\..\..\utils\SingleRead.cpp" />
-    <ClCompile Include="..\..\..\utils\stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\..\utils\StopWatch.cpp" />
-    <ClCompile Include="..\..\..\utils\StringUtils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\utils\Assert.h" />
-    <ClInclude Include="..\..\..\utils\CommandLine.h" />
-    <ClInclude Include="..\..\..\utils\ConfigUtils.h" />
-    <ClInclude Include="..\..\..\utils\ExceptionCreator.h" />
-    <ClInclude Include="..\..\..\utils\MurmurHash3.h" />
-    <ClInclude Include="..\..\..\utils\MurmurHash3Adapter.h" />
-    <ClInclude Include="..\..\..\utils\NullLogger.h" />
-    <ClInclude Include="..\..\..\utils\SingleDelete.h" />
-    <ClInclude Include="..\..\..\utils\SingleRead.h" />
-    <ClInclude Include="..\..\..\utils\SingleWrite.h" />
-    <ClInclude Include="..\..\..\utils\stdafx.h" />
-    <ClInclude Include="..\..\..\utils\StopWatch.h" />
-    <ClInclude Include="..\..\..\utils\StringUtils.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

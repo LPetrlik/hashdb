@@ -57,10 +57,10 @@ void DataPageTest::testMinRecordId()
 {
 	// Minimalistic record id.
 	const char expected1[] = {1, 'a', 0};
-	const boost::string_ref key1("a");
+	const std::string_view key1("a");
 
 	RecordId id1(key1, 0);
-	boost::string_ref value1 = id1.value();
+	std::string_view value1 = id1.value();
 
 	TS_ASSERT_EQUALS(value1.size(), sizeof(expected1));
 	TS_ASSERT_SAME_DATA(expected1, value1.data(), sizeof(expected1));
@@ -68,10 +68,10 @@ void DataPageTest::testMinRecordId()
 
 	// Common record id.
 	const char expected2[] = {2, 'a', 'z', 127};
-	const boost::string_ref key2("az");
+	const std::string_view key2("az");
 
 	RecordId id2(key2, 127);
-	boost::string_ref value2 = id2.value();
+	std::string_view value2 = id2.value();
 
 	TS_ASSERT_EQUALS(sizeof(expected2), value2.size());
 	TS_ASSERT_SAME_DATA(expected2, value2.data(), sizeof(expected2));
@@ -88,7 +88,7 @@ void DataPageTest::testMaxRecordId()
 	expected += 1;
 
 	RecordId id(key, 1);
-	boost::string_ref value = id.value();
+	std::string_view value = id.value();
 
 	TS_ASSERT_EQUALS(expected.size(), value.size());
 	TS_ASSERT_SAME_DATA(expected.data(), value.data(), static_cast<unsigned>(expected.size()));
@@ -717,7 +717,7 @@ namespace {
 		TS_ASSERT_EQUALS(0U, cursor.partNum());
 		TS_ASSERT_EQUALS(firstValue, cursor.inlineValue());
 
-		const boost::string_ref firstRecord = cursor.inlineRecord();
+		const std::string_view firstRecord = cursor.inlineRecord();
 		TS_ASSERT_EQUALS(cursor.recordIdValue().data(), firstRecord.data());
 		TS_ASSERT_EQUALS(firstAddedSize, firstRecord.size());
 
@@ -729,7 +729,7 @@ namespace {
 		TS_ASSERT_EQUALS(secondValueSize, cursor.largeValueSize());
 		TS_ASSERT_EQUALS(secondValuePage, cursor.firstLargeValuePageId());
 
-		const boost::string_ref secondRecord = cursor.inlineRecord();
+		const std::string_view secondRecord = cursor.inlineRecord();
 		TS_ASSERT_EQUALS(cursor.recordIdValue().data(), secondRecord.data());
 		TS_ASSERT_EQUALS(secondAddedSize, secondRecord.size());
 
@@ -790,7 +790,7 @@ void DataPageTest::testAddInlineRecordData()
 		TS_ASSERT_EQUALS(0U, cursor.partNum());
 		TS_ASSERT_EQUALS(firstValue, cursor.inlineValue());
 
-		const boost::string_ref firstRecord = cursor.inlineRecord();
+		const std::string_view firstRecord = cursor.inlineRecord();
 		TS_ASSERT_EQUALS(cursor.recordIdValue().data(), firstRecord.data());
 		TS_ASSERT_EQUALS(firstAddedSize, firstRecord.size());
 
@@ -805,7 +805,7 @@ void DataPageTest::testAddInlineRecordData()
 		TS_ASSERT_EQUALS(secondValueSize, cursor.largeValueSize());
 		TS_ASSERT_EQUALS(secondValuePage, cursor.firstLargeValuePageId());
 
-		const boost::string_ref secondRecord = cursor.inlineRecord();
+		const std::string_view secondRecord = cursor.inlineRecord();
 		TS_ASSERT_EQUALS(cursor.recordIdValue().data(), secondRecord.data());
 		TS_ASSERT_EQUALS(secondAddedSize, secondRecord.size());
 

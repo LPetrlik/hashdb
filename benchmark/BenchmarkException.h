@@ -34,7 +34,7 @@ namespace benchmark {
 
 	class BenchmarkException : public kerio::hashdb::Exception {
 	public:
-		BenchmarkException(const boost::string_ref& file, int line, const boost::string_ref&, const std::string& message)
+		BenchmarkException(const std::string_view& file, int line, const std::string_view&, const std::string& message)
 			: Exception(file, line, "Benchmark exception: " + message + ".")
 		{
 

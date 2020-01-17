@@ -35,7 +35,7 @@ namespace hashdb {
 
 	class SingleWrite : public IWriteBatch { // intentionally copyable
 	public:
-		SingleWrite(const boost::string_ref& key, partNum_t partNum, const boost::string_ref& value)
+		SingleWrite(const std::string_view& key, partNum_t partNum, const std::string_view& value)
 			: key_(key)
 			, partNum_(partNum)
 			, value_(value)
@@ -67,9 +67,9 @@ namespace hashdb {
 		}
 
 	private:
-		const boost::string_ref key_;
+		const std::string_view key_;
 		const partNum_t partNum_; 
-		const boost::string_ref value_;
+		const std::string_view value_;
 	};
 
 }; // hashdb

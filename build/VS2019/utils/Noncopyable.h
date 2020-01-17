@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Kerio Technologies s.r.o.
+/* Copyright (c) 2019 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -10,7 +10,7 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS.
  * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS NOTICE BE
@@ -24,40 +24,20 @@
  * dealings in this Software without prior written authorization of the
  * copyright holder.
  */
+
+// Noncopyable.h - noncopyable base class.
+
 #pragma once
-#include "db/Environment.h"
 
-class DatabaseTest : public CxxTest::TestSuite {
-public:
-	DatabaseTest();
+namespace kerio {
+namespace hashdb {
 
-	void setUp();
-	void tearDown();
+    struct Noncopyable
+    {
+        Noncopyable() = default;
+        Noncopyable(const Noncopyable&) = delete;
+        Noncopyable& operator=(const Noncopyable&) = delete;
+    };
 
-	void testOpenInvalid();
-	void testCreateEmpty();
-	void testOpenCorrupted();
-	void testOpenUnsupportedVersion();
-
-	void testInvalidArguments();
-	void testSingleInlineValue();
-	void testFillSinglePage();
-	void testCreateThreeOverflowPages();
-	void testCreateThreePageLargeValue();
-	void testRemoveAllParts();
-
-	void testCreatePreallocatedDatabase();
-	void testBucketSplit();
-	void testBucketSplitLargeValues();
-
-	void testReferenceBatchRequests();
-	void testCopyBatchRequests();
-	void testBatchRequestDeleteAll();
-
-	void testStoreLimit();
-	void testFetchLimit();
-
-private:
-	std::string databaseTestPath_;
-	std::unique_ptr<kerio::hashdb::IPageAllocator> allocator_;
-};
+}; // namespace hashdb
+}; // namespace kerio

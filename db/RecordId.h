@@ -35,12 +35,12 @@ namespace hashdb {
 
 	class RecordId {
 	public:
-		RecordId(const boost::string_ref& key, partNum_t part);
-		boost::string_ref key() const;
+		RecordId(const std::string_view& key, partNum_t part);
+		std::string_view key() const;
 
 		const uint8_t* data() const;
 		size_type size() const;
-		boost::string_ref value() const;
+		std::string_view value() const;
 
 		size_type recordOverheadSize() const;
 

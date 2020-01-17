@@ -28,7 +28,6 @@
 // ConfigUtils.h - configuration utilities.
 #pragma once
 #include <stdarg.h>
-#include <boost/format.hpp>
 #include <kerio/hashdb/Types.h>
 
 namespace kerio {

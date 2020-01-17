@@ -28,6 +28,7 @@
 // StringUtils.cpp - string utilities.
 #include "stdafx.h"
 #include <stdio.h>
+#include <ostream>
 #include <kerio/hashdb/Constants.h>
 #include "StringUtils.h"
 
@@ -45,14 +46,9 @@ namespace hashdb {
 		return buf;
 	}
 
-	std::string formatMessage(const char *fmt)
+	void printJsonString(std::ostream& os, const std::string_view& s)
 	{
-		return fmt;
-	}
-
-	void printJsonString(std::ostream& os, const boost::string_ref& s)
-	{
-		for (boost::string_ref::const_iterator ii = s.begin(); ii != s.end(); ++ii) {
+		for (std::string_view::const_iterator ii = s.begin(); ii != s.end(); ++ii) {
 			const std::string::value_type element = *ii;
 
 			if (element == '\"') { // Escape double quote.
@@ -79,14 +75,14 @@ namespace hashdb {
 		}
 	}
 
-	void printJsonNameValue(std::ostream& os, const boost::string_ref& name, const boost::string_ref& value)
+	void printJsonNameValue(std::ostream& os, const std::string_view& name, const std::string_view& value)
 	{
 		os << "\"" << name << "\" : \"";
 		printJsonString(os, value);
 		os << "\"";
 	}
 
-	void printJsonNameValue(std::ostream& os, const boost::string_ref& name, int value)
+	void printJsonNameValue(std::ostream& os, const std::string_view& name, int value)
 	{
 		os << "\"" << name << "\" : " << value;
 	}

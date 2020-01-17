@@ -27,7 +27,7 @@
 
 // OverflowFilePageAllocator.h - manages pages in the overflow file.
 #pragma once
-#include  <boost/unordered_map.hpp>
+#include  <unordered_map>
 #include "BitmapPage.h"
 #include "OpenFiles.h"
 
@@ -50,7 +50,7 @@ namespace hashdb {
 		size_type heldPages() const;
 
 	private:
-		typedef boost::unordered_map<uint32_t, BitmapPage> bitmapPageMap_t;
+		typedef std::unordered_map<uint32_t, BitmapPage> bitmapPageMap_t;
 
 		bitmapPageMap_t::iterator existingBitmapPage(uint32_t bitmapPageNumber);
 		uint32_t acquireOffsetFromNewBitmapPage(uint32_t bitmapPageNumber);

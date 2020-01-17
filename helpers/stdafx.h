@@ -12,7 +12,7 @@
 
 #include <cstdlib>
 #include <string>
-#include <boost/utility/string_ref.hpp>
+#include <string_view>
 
 #if defined(_WIN32)
 #include <Windows.h>

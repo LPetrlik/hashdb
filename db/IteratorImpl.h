@@ -28,17 +28,16 @@
 // IteratorImpl.h - implementation of the IIterator interface.
 #pragma once
 #include <kerio/hashdb/Iterator.h>
-#include <boost/weak_ptr.hpp>
 #include "IteratorPosition.h"
 #include "OpenDatabase.h"
 
 namespace kerio {
 namespace hashdb {
 
-	class IteratorImpl : public IIterator, boost::noncopyable
+	class IteratorImpl : public IIterator, Noncopyable
 	{
 	public:
-		IteratorImpl(boost::shared_ptr<OpenDatabase>& openDatabase);
+		IteratorImpl(std::shared_ptr<OpenDatabase>& openDatabase);
 		virtual ~IteratorImpl();
 
 		virtual bool isValid() const;

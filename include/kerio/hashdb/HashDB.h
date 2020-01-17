@@ -43,9 +43,9 @@
 
 #include <string>
 #include <vector>
-#include <boost/shared_ptr.hpp>
-#include <boost/utility/string_ref.hpp>
-#include <boost/filesystem/path.hpp>
+#include <memory>
+#include <string_view>
+#include <filesystem>
 #include <kerio/hashdb/Options.h>
 #include <kerio/hashdb/Types.h>
 #include <kerio/hashdb/BatchApi.h>
@@ -68,7 +68,7 @@ namespace hashdb {
 		// A database must not be open multiple times simultaneously.
 		//
 		// Example: db->open("filename", Options::readWriteSingleThreaded());
-		virtual void open(const boost::filesystem::path& database, const Options& options) = 0;
+		virtual void open(const std::filesystem::path& database, const Options& options) = 0;
 
 		// Closes the database.
 		virtual void close() = 0;
@@ -94,21 +94,21 @@ namespace hashdb {
 		// Fetches the value associated with the given key and partNum from the database.
 		// If the value is found, the method sets the 'value' output parameter and returns true.
 		// Otherwise the method returns false.
-		virtual bool fetch(const boost::string_ref& key, partNum_t partNum, std::string& value) = 0;
+		virtual bool fetch(const std::string_view& key, partNum_t partNum, std::string& value) = 0;
 
 		// Stores a record containing the given key, partNum, and value into the database.
-		virtual	void store(const boost::string_ref& key, partNum_t partNum, const boost::string_ref& value) = 0;
+		virtual	void store(const std::string_view& key, partNum_t partNum, const std::string_view& value) = 0;
 		
 		// Removes a record containing the given key and partNum from the database. 
 		// The method does nothing if the record is not found.
-		virtual void remove(const boost::string_ref& key, partNum_t partNum) = 0;
+		virtual void remove(const std::string_view& key, partNum_t partNum) = 0;
 
 		// Removes all records containing the given key from the database.
 		// The method does nothing if no such record is found.
-		virtual void remove(const boost::string_ref& key) = 0;
+		virtual void remove(const std::string_view& key) = 0;
 
 		// Returns a list of all partNums associated with the given key in the database.
-		virtual std::vector<partNum_t> listParts(const boost::string_ref& key) = 0;
+		virtual std::vector<partNum_t> listParts(const std::string_view& key) = 0;
 
 		//------------------------------------------------------------------------
 		// Batch API.
@@ -139,19 +139,19 @@ namespace hashdb {
 		// Management of database files.
 	public:
 		// Returns true of database exists.
-		virtual bool exists(const boost::filesystem::path& database) = 0;
+		virtual bool exists(const std::filesystem::path& database) = 0;
 
 		// Renames database files. Returns true if the source database files existed and were successfully renamed to target database files.
-		virtual bool rename(const boost::filesystem::path& source, const boost::filesystem::path& target) = 0;
+		virtual bool rename(const std::filesystem::path& source, const std::filesystem::path& target) = 0;
 
 		// Deletes database files. Returns true if the database files existed and were successfully deleted.
-		virtual bool drop(const boost::filesystem::path& database) = 0;
+		virtual bool drop(const std::filesystem::path& database) = 0;
 
 	public:
 		virtual ~IDatabase() { }
 	};
 
-	typedef boost::shared_ptr<IDatabase> Database;
+	typedef std::shared_ptr<IDatabase> Database;
 
 	Database DatabaseFactory();
 

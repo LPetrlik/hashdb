@@ -32,11 +32,11 @@
 namespace kerio {
 namespace hashdb {
 
-	class PagedFile : boost::noncopyable {
+	class PagedFile : Noncopyable {
 	public:
 		typedef uint64_t fileSize_t;
 
-		PagedFile(const boost::filesystem::path& fileName, PageId::DatabaseFile_t fileType, const Options& options, Environment& environment);
+		PagedFile(const std::filesystem::path& fileName, PageId::DatabaseFile_t fileType, const Options& options, Environment& environment);
 		void close();
 		bool isClosed() const;
 		~PagedFile();

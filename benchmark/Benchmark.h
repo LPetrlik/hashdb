@@ -42,7 +42,7 @@ namespace benchmark {
 		virtual ~IBenchmark() { };
 	};
 
-	typedef boost::shared_ptr<IBenchmark> Benchmark;
+	typedef std::shared_ptr<IBenchmark> Benchmark;
 
 	class IBenchmarkFactory {
 	public:
@@ -59,7 +59,7 @@ namespace benchmark {
 		static const size_type DEFAULT_DELETE_ITERATIONS =  5000;
 	};
 
-	typedef boost::shared_ptr<IBenchmarkFactory> BenchmarkFactory;
+	typedef std::shared_ptr<IBenchmarkFactory> BenchmarkFactory;
 
 	// Single entry put/get/delete.
 	BenchmarkFactory newWriteBenchmarkFactory();

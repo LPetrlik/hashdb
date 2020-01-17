@@ -42,7 +42,7 @@ namespace hashdb {
 		void next();
 		void reset();
 		bool find(const RecordId& recordId);
-		bool find(const boost::string_ref& key);
+		bool find(const std::string_view& key);
 
 		// Cursor properties.
 		bool isValid() const;
@@ -50,11 +50,11 @@ namespace hashdb {
 		uint16_t index() const;
 
 		// Accessors.
-		boost::string_ref recordIdValue() const;
-		boost::string_ref key() const;
+		std::string_view recordIdValue() const;
+		std::string_view key() const;
 		partNum_t partNum() const;
-		boost::string_ref inlineValue() const;
-		boost::string_ref inlineRecord() const;
+		std::string_view inlineValue() const;
+		std::string_view inlineRecord() const;
 
 		size_type largeValueSize() const;
 		PageId firstLargeValuePageId() const;

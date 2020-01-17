@@ -28,7 +28,7 @@
 // Iterator.h -- iterates the hashdb database.
 #pragma once
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <kerio/hashdb/Types.h>
 
 namespace kerio {
@@ -59,7 +59,7 @@ namespace hashdb {
 		virtual ~IIterator() { }
 	};
 
-	typedef boost::shared_ptr<IIterator> Iterator;
+	typedef std::shared_ptr<IIterator> Iterator;
 
 }; // namespace hashdb
 }; // namespace kerio

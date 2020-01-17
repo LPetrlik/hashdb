@@ -93,7 +93,7 @@ namespace benchmark {
 		RAISE_INVALID_ARGUMENT_IF(arguments.count() < 1, "not enough arguments");
 
 		// Database type.
-		const boost::string_ref dbType = arguments.optionRef("--use");
+		const std::string_view dbType = arguments.optionRef("--use");
 		if (dbType.empty() || dbType == "hashdb") {
 			databaseWrapperFactory_ = newHashdbWapperFactory();
 		}
@@ -171,7 +171,7 @@ namespace benchmark {
 			keyPrefix.resize(keyPrefixSize, '0');
 		}
 
-		const boost::string_ref keyType = arguments.optionRef("--key");
+		const std::string_view keyType = arguments.optionRef("--key");
 		if (keyType.empty() || keyType == "int_be" || keyType == "int") {
 			keyProducer_ = newInt32BigEndianDataProducer(keyPrefix);
 		}
@@ -191,7 +191,7 @@ namespace benchmark {
 			valuePrefix.resize(valuePrefixSize, '0');
 		}
 
-		const boost::string_ref valueType = arguments.optionRef("--value");
+		const std::string_view valueType = arguments.optionRef("--value");
 		if (valueType.empty() || valueType == "props") {
 			valueProducer_ = newPropsDataProducer(valuePrefix);
 		}
@@ -217,7 +217,7 @@ namespace benchmark {
 		csvLabel_ = arguments.optionRef("--label").to_string();
 
 		// Database name.
-		const boost::string_ref db = arguments.optionRef("--db");
+		const std::string_view db = arguments.optionRef("--db");
 		if (! db.empty()) {
 			databaseName_ = db.to_string();
 		}

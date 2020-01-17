@@ -37,7 +37,7 @@ namespace hashdb {
 	template <class T>
 	class ExceptionCreator { // intentionally copyable
 	public:
-		ExceptionCreator(const boost::string_ref& file, int line, const boost::string_ref& function)
+		ExceptionCreator(const std::string_view& file, int line, const std::string_view& function)
 			: file_(file)
 			, line_(line)
 			, function_(function)
@@ -51,9 +51,9 @@ namespace hashdb {
 		}
 
 	private:
-		const boost::string_ref file_;
+		const std::string_view file_;
 		const int line_;
-		const boost::string_ref function_;
+		const std::string_view function_;
 	};
 
 }; // namespace hashdb

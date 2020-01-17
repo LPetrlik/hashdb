@@ -32,7 +32,7 @@
 namespace kerio {
 namespace hashdb {
 
-	class NullLockManager : public ILockManager, boost::noncopyable {
+	class NullLockManager : public ILockManager, Noncopyable {
 	public:
 		virtual lockSet_t newLockSet() { return 0; }
 		virtual void acquireReadLock(lockSet_t lockSet, const PageId& pageId) { }

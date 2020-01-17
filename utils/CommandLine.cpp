@@ -41,13 +41,13 @@ namespace hashdb {
 		usedOptions_[0] = true;
 	}
 
-	boost::string_ref CommandLine::findOption(boost::string_ref optionName)
+	std::string_view CommandLine::findOption(std::string_view optionName)
 	{
-		boost::string_ref rv;
+		std::string_view rv;
 
 		for (int i = 1; i < argc_; ++i) {
-			boost::string_ref thisOption(argv_[i]);
-			if (thisOption == optionName || thisOption.starts_with(optionName.to_string() + "=")) {
+			std::string_view thisOption(argv_[i]);
+			if (thisOption == optionName || thisOption.starts_with(std::string(optionName) + "=")) {
 				rv = thisOption;
 				usedOptions_[i] = true;
 				break;
@@ -57,16 +57,16 @@ namespace hashdb {
 		return rv;
 	}
 
-	bool CommandLine::hasOption(boost::string_ref optionName)
+	bool CommandLine::hasOption(std::string_view optionName)
 	{
-		boost::string_ref found = findOption(optionName);
+		std::string_view found = findOption(optionName);
 		return ! found.empty();
 	}
 
-	boost::string_ref CommandLine::optionRef(boost::string_ref optionName)
+	std::string_view CommandLine::optionRef(std::string_view optionName)
 	{
-		boost::string_ref rv;
-		boost::string_ref found = findOption(optionName);
+		std::string_view rv;
+		std::string_view found = findOption(optionName);
 
 		if (found.size() > optionName.size() + 1) {
 			found.remove_prefix(optionName.size());
@@ -80,13 +80,13 @@ namespace hashdb {
 		return rv;
 	}
 
-	bool CommandLine::optionUnsignedNumericValue(size_type& value, boost::string_ref optionName)
+	bool CommandLine::optionUnsignedNumericValue(size_type& value, std::string_view optionName)
 	{
-		boost::string_ref refValue = optionRef(optionName);
+		std::string_view refValue = optionRef(optionName);
 		bool success = false;
 
 		if (!refValue.empty()) {
-			const std::string scanValue = refValue.to_string();
+            const std::string scanValue{ refValue };
 			unsigned scanResult;
 
 			if (sscanf(scanValue.c_str(), "%u", &scanResult) == 1) {
@@ -99,13 +99,13 @@ namespace hashdb {
 	}
 
 
-	bool CommandLine::optionSignedNumericValue(int32_t& value, boost::string_ref optionName)
+	bool CommandLine::optionSignedNumericValue(int32_t& value, std::string_view optionName)
 	{
-		boost::string_ref refValue = optionRef(optionName);
+		std::string_view refValue = optionRef(optionName);
 		bool success = false;
 
 		if (!refValue.empty()) {
-			const std::string scanValue = refValue.to_string();
+            const std::string scanValue{ refValue };
 			int scanResult;
 
 			if (sscanf(scanValue.c_str(), "%d", &scanResult) == 1) {

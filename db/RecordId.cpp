@@ -33,7 +33,7 @@
 namespace kerio {
 namespace hashdb {
 
-	RecordId::RecordId(const boost::string_ref& key, partNum_t partNum)
+	RecordId::RecordId(const std::string_view& key, partNum_t partNum)
 	{
 		RAISE_INTERNAL_ERROR_IF_ARG(key.empty() || key.size() > MAX_KEY_SIZE);
 		RAISE_INTERNAL_ERROR_IF_ARG(partNum < 0 || partNum > MAX_PARTNUM);
@@ -45,9 +45,9 @@ namespace hashdb {
 		buffer_[size_ - 1] = static_cast<uint8_t>(partNum);
 	}
 
-	boost::string_ref RecordId::key() const
+	std::string_view RecordId::key() const
 	{
-		boost::string_ref keyVal = value();
+		std::string_view keyVal = value();
 		keyVal.remove_prefix(1);
 		keyVal.remove_suffix(1);
 		return keyVal;
@@ -63,9 +63,9 @@ namespace hashdb {
 		return size_;
 	}
 
-	boost::string_ref RecordId::value() const
+	std::string_view RecordId::value() const
 	{
-		return boost::string_ref(reinterpret_cast<const char*>(&buffer_[0]), size_);
+		return std::string_view(reinterpret_cast<const char*>(&buffer_[0]), size_);
 	}
 
 	size_type RecordId::recordOverheadSize() const

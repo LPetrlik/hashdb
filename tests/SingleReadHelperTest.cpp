@@ -34,7 +34,7 @@ using namespace kerio::hashdb;
 
 void SingleReadHelperTest::testSingleReadHelper()
 {
-	const boost::string_ref expectedKey("JHD38xjcd9");
+	const std::string_view expectedKey("JHD38xjcd9");
 	const partNum_t expectedPartNum = 123;
 	const std::string expectedValue("Aldq30	r30edjk39dmd3d23d d32-23d\\");
 
@@ -51,7 +51,7 @@ void SingleReadHelperTest::testSingleReadHelper()
 
 void SingleReadHelperTest::testSingleReadLargeValue()
 {
-	const boost::string_ref expectedKey("JHD38xjcd9");
+	const std::string_view expectedKey("JHD38xjcd9");
 	const partNum_t expectedPartNum = 123;
 	const std::string expectedValue = valueOfSize(64 * 1024 + 13);
 

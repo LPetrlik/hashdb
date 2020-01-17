@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2019 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +30,7 @@
 #pragma once
 #include <exception>
 #include <string>
-#include <boost/utility/string_ref.hpp>
+#include <string_view>
 
 namespace kerio {
 namespace hashdb {
@@ -48,7 +49,7 @@ namespace hashdb {
 
 		}
 
-		boost::string_ref file()
+		std::string_view file()
 		{
 			return file_;
 		}
@@ -59,7 +60,7 @@ namespace hashdb {
 		}
 
 	protected:
-		Exception(const boost::string_ref& file, int line, const std::string& what)
+		Exception(const std::string_view& file, int line, const std::string& what)
 			: file_(file)
 			, line_(line)
 			, what_(what)
@@ -68,7 +69,7 @@ namespace hashdb {
 		}
 
 	private:
-		const boost::string_ref file_;
+		const std::string_view file_;
 		const int line_;
 		const std::string what_;
 	};
@@ -79,7 +80,7 @@ namespace hashdb {
 	class DataError : public Exception
 	{
 	public:
-		DataError(const boost::string_ref& file, int line, const std::string& what)
+		DataError(const std::string_view& file, int line, const std::string& what)
 			: Exception(file, line, what)
 		{
 
@@ -90,7 +91,7 @@ namespace hashdb {
 	class InvalidArgumentException : public Exception
 	{
 	public:
-		InvalidArgumentException(const boost::string_ref& file, int line, const boost::string_ref&, const std::string& message)
+		InvalidArgumentException(const std::string_view& file, int line, const std::string_view&, const std::string& message)
 			: Exception(file, line, "Invalid argument: " + message + ".")
 		{
 
@@ -101,7 +102,7 @@ namespace hashdb {
 	class DatabaseCorruptedException : public DataError
 	{
 	public:
-		DatabaseCorruptedException(const boost::string_ref& file, int line, const boost::string_ref&, const std::string& message)
+		DatabaseCorruptedException(const std::string_view& file, int line, const std::string_view&, const std::string& message)
 			: DataError(file, line, "Database corrupted: " + message + ".")
 		{
 
@@ -112,7 +113,7 @@ namespace hashdb {
 	class IncompatibleDatabaseVersion : public DataError
 	{
 	public:
-		IncompatibleDatabaseVersion(const boost::string_ref& file, int line, const boost::string_ref&, const std::string& message)
+		IncompatibleDatabaseVersion(const std::string_view& file, int line, const std::string_view&, const std::string& message)
 			: DataError(file, line, "Incompatible database version: " + message + ".")
 		{
 
@@ -123,7 +124,7 @@ namespace hashdb {
 	class ValueTooLarge : public Exception
 	{
 	public:
-		ValueTooLarge(const boost::string_ref& file, int line, const boost::string_ref&, const std::string& message)
+		ValueTooLarge(const std::string_view& file, int line, const std::string_view&, const std::string& message)
 			: Exception(file, line, "Value too large: " + message + ".")
 		{
 
@@ -134,7 +135,7 @@ namespace hashdb {
 	class IoException : public Exception
 	{
 	public:
-		IoException(const boost::string_ref& file, int line, const boost::string_ref&, const std::string& message)
+		IoException(const std::string_view& file, int line, const std::string_view&, const std::string& message)
 			: Exception(file, line, "I/O error: " + message + ".")
 		{
 
@@ -145,8 +146,8 @@ namespace hashdb {
 	class NotYetImplementedException : public Exception
 	{
 	public:
-		NotYetImplementedException(const boost::string_ref& file, int line, const boost::string_ref& function, const std::string& message)
-			: Exception(file, line, "Not yet implemented: " + message + " (in function " + function.to_string() + ").")
+		NotYetImplementedException(const std::string_view& file, int line, const std::string_view& function, const std::string& message)
+			: Exception(file, line, "Not yet implemented: " + message + " (in function " + std::string(function) + ").")
 		{
 
 		}
@@ -156,7 +157,7 @@ namespace hashdb {
 	class InternalErrorException : public DataError
 	{
 	public:
-		InternalErrorException(const boost::string_ref& file, int line, const boost::string_ref&, const std::string& message)
+		InternalErrorException(const std::string_view& file, int line, const std::string_view&, const std::string& message)
 			: DataError(file, line, "Internal error:" + message + ".")
 		{
 

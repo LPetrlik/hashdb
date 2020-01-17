@@ -33,9 +33,9 @@ using namespace kerio::hashdb;
 
 void SingleWriteHelperTest::testSingleWriteHelper()
 {
-	const boost::string_ref expectedKey("TTHyRxwZw7nbrTL1g3\005L5rl9mSE24G2FUA0RSPjKrA\1");
+	const std::string_view expectedKey("TTHyRxwZw7nbrTL1g3\005L5rl9mSE24G2FUA0RSPjKrA\1");
 	const partNum_t expectedPartNum = 13;
-	const boost::string_ref expectedValue("l42OJZmo52O7jkRdaSPwGHledilbvs7Vkfi7nEE/oM0NIrZHBnxgiHWKEw==");
+	const std::string_view expectedValue("l42OJZmo52O7jkRdaSPwGHledilbvs7Vkfi7nEE/oM0NIrZHBnxgiHWKEw==");
 
 	boost::scoped_ptr<IWriteBatch> singleWrite(new SingleWrite(expectedKey, expectedPartNum, expectedValue));
 	TS_ASSERT_EQUALS(singleWrite->count(), 1U);

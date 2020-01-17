@@ -230,13 +230,13 @@ void PageTest::testPutGetBytes()
 {
 	static const size_type PAGE_SIZE = 16;
 
-	boost::string_ref value1("123");
+	std::string_view value1("123");
 	const size_type index1 = 0;
 
-	boost::string_ref value2("abcdef");
+	std::string_view value2("abcdef");
 	const size_type index2 = PAGE_SIZE - static_cast<size_type>(value2.size());
 
-	boost::string_ref value3("");
+	std::string_view value3("");
 	const size_type index3 = 5;
 
 	BucketDataPage page(allocator_.get(), PAGE_SIZE);
@@ -276,7 +276,7 @@ void PageTest::testPutGetBytes()
 void PageTest::testHasBytes()
 {
 	static const size_type PAGE_SIZE = 8;
-	boost::string_ref value("12345678");
+	std::string_view value("12345678");
 
 	BucketDataPage page(allocator_.get(), PAGE_SIZE);
 	page.clear();
@@ -299,7 +299,7 @@ void PageTest::testHasBytes()
 void PageTest::testMoveBytes()
 {
 	static const size_type PAGE_SIZE = 16;
-	boost::string_ref value("0123456789ABCDEF");
+	std::string_view value("0123456789ABCDEF");
 
 	BucketDataPage page(allocator_.get(), PAGE_SIZE);
 	page.putBytes(0, value);
@@ -325,7 +325,7 @@ void PageTest::testMoveBytes()
 void PageTest::testClear()
 {
 	static const size_type PAGE_SIZE = 16;
-	boost::string_ref value("0123456789ABCDEF");
+	std::string_view value("0123456789ABCDEF");
 
 	BucketDataPage page(allocator_.get(), PAGE_SIZE);
 	page.putBytes(0, value);

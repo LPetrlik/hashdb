@@ -530,7 +530,7 @@ namespace benchmark {
 			return 0;
 		}
 
-		virtual bool setValueAt(size_t index, const boost::string_ref& value)
+		virtual bool setValueAt(size_t index, const std::string_view& value)
 		{
 			records_.at(index).value_.assign(value.begin(), value.end());
 			return true;

@@ -28,6 +28,7 @@
 // Environment.h - environment for accessing the database.
 #pragma once
 #include <kerio/hashdb/HashDB.h>
+#include "utils/Noncopyable.h"
 #include "Interfaces.h"
 #include "PageId.h"
 
@@ -44,7 +45,7 @@ namespace hashdb {
 
 #define HASHDB_LOG_DEBUG_DETAIL(fmt, ...)	HASHDB_LOG_DEBUG(fmt, ## __VA_ARGS__)
 
-	class Environment : boost::noncopyable
+	class Environment : Noncopyable
 	{
 	public:
 		Environment(const Options& options);
@@ -59,10 +60,10 @@ namespace hashdb {
 		void logDebug(const std::string& logMessage);
 
 	private:
-		boost::shared_ptr<ILogger> logger_;
-		boost::scoped_ptr<ILockManager> lockManager_;
-		boost::scoped_ptr<IPageAllocator> pageAllocator_;
-		boost::scoped_ptr<IPageAllocator> headerPageAllocator_;
+		std::shared_ptr<ILogger> logger_;
+		std::unique_ptr<ILockManager> lockManager_;
+        std::unique_ptr<IPageAllocator> pageAllocator_;
+        std::unique_ptr<IPageAllocator> headerPageAllocator_;
 	};
 
 }; // namespace hashdb

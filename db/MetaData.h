@@ -48,7 +48,7 @@ namespace hashdb {
 	public:
 		uint32_t newBucketNumber();
 
-		uint32_t bucketForKey(const boost::string_ref& key) const;
+		uint32_t bucketForKey(const std::string_view& key) const;
 		uint32_t highestBucket() const;
 		uint32_t bucketToSplit() const;
 

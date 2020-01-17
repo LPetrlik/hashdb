@@ -91,7 +91,7 @@ namespace hashdb {
 	//----------------------------------------------------------------------------
 	// Adding data.
 
-	DataPage::AddedValueRef::AddedValueRef(const boost::string_ref& value) 
+	DataPage::AddedValueRef::AddedValueRef(const std::string_view& value) 
 		: valueSizeOrTag_(static_cast<uint16_t>(value.size()))
 		, valueReference_(value)
 		, largeValueRef_(0LL)
@@ -108,7 +108,7 @@ namespace hashdb {
 		return valueSizeOrTag_;
 	}
 
-	boost::string_ref DataPage::AddedValueRef::value() const
+	std::string_view DataPage::AddedValueRef::value() const
 	{
 		return valueReference_;
 	}
@@ -134,7 +134,7 @@ namespace hashdb {
 			this->operator[](valueSizeOffset)     = (valueSizeOrTag & 0xff);
 			this->operator[](valueSizeOffset + 1) = ((valueSizeOrTag >> 8) & 0xff);
 
-			const boost::string_ref value = valueRef.value();
+			const std::string_view value = valueRef.value();
 			putBytes(valueOffset, value);
 
 			// Add new pointer to the start of the key.
@@ -147,7 +147,7 @@ namespace hashdb {
 		return (canAdd)? recordInlineSize : 0;
 	}
 
-	size_type DataPage::addSingleRecord(const boost::string_ref& recordInlineData)
+	size_type DataPage::addSingleRecord(const std::string_view& recordInlineData)
 	{
 		const size_type recordInlineSize = static_cast<size_type>(recordInlineData.size());
 		const bool canAdd = freeSpace() >= sizeof(uint16_t) + recordInlineSize;

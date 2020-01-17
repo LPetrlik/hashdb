@@ -41,10 +41,10 @@ namespace hashdb {
 
 	namespace {
 
-		boost::filesystem::path createFileName(const boost::filesystem::path& database, const std::string& suffix)
+		boost::filesystem::path createFileName(const std::filesystem::path& database, const std::string& suffix)
 		{
-			boost::filesystem::path file(database);
-			boost::filesystem::path extension(suffix);
+			std::filesystem::path file(database);
+			std::filesystem::path extension(suffix);
 
 			file += extension;
 			return file;

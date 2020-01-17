@@ -46,12 +46,12 @@ namespace hashdb {
 		virtual void releaseSomeResources();
 		virtual void prefetch();
 
-		void checkSimpleArgumentFor(const boost::string_ref& key, partNum_t partNum) const;
-		virtual bool fetch(const boost::string_ref& key, partNum_t partNum, std::string& value);
-		virtual	void store(const boost::string_ref& key, partNum_t partNum, const boost::string_ref& value);
-		virtual void remove(const boost::string_ref& key, partNum_t partNum);
-		virtual void remove(const boost::string_ref& key);
-		virtual std::vector<partNum_t> listParts(const boost::string_ref& key);
+		void checkSimpleArgumentFor(const std::string_view& key, partNum_t partNum) const;
+		virtual bool fetch(const std::string_view& key, partNum_t partNum, std::string& value);
+		virtual	void store(const std::string_view& key, partNum_t partNum, const std::string_view& value);
+		virtual void remove(const std::string_view& key, partNum_t partNum);
+		virtual void remove(const std::string_view& key);
+		virtual std::vector<partNum_t> listParts(const std::string_view& key);
 
 		void checkBatchArgumentFor(const IKeyProducer& batch) const;
 		virtual bool fetch(IReadBatch& readBatch);

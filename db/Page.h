@@ -195,9 +195,9 @@ namespace hashdb {
 			put32unchecked(index, value);
 		}
 
-		void putBytes(size_type index, boost::string_ref value);
-		boost::string_ref getBytes(size_type index, size_type size) const;
-		bool hasBytes(size_type index, boost::string_ref value) const;
+		void putBytes(size_type index, std::string_view value);
+		std::string_view getBytes(size_type index, size_type size) const;
+		bool hasBytes(size_type index, std::string_view value) const;
 		void moveBytes(size_type dstOffset, size_type srcOffset, size_type size);
 
 		void clear();

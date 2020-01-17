@@ -38,7 +38,7 @@ namespace benchmark {
 		virtual ~ISequence() { }
 	};
 
-	typedef boost::shared_ptr<ISequence> Sequence;
+	typedef std::shared_ptr<ISequence> Sequence;
 
 	class ISequenceFactory {
 	public:
@@ -48,7 +48,7 @@ namespace benchmark {
 		virtual ~ISequenceFactory() { }
 	};
 
-	typedef boost::shared_ptr<ISequenceFactory> SequenceFactory;
+	typedef std::shared_ptr<ISequenceFactory> SequenceFactory;
 
 	SequenceFactory newRandomSequenceFactory(size_type maxResult, size_type sequenceSize);
 	SequenceFactory newSimpleSequenceFactory(size_type initialValue, size_type sequenceSize);

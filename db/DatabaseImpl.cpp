@@ -27,7 +27,7 @@
 
 // DatabaseImpl.cpp - implementation of the IDatabase interface.
 #include "stdafx.h"
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <kerio/hashdb/Constants.h>
 #include <sstream>
 #include "utils/SingleRead.h"
@@ -66,7 +66,7 @@ namespace hashdb {
 	//-------------------------------------------------------------------------
 	// Open and close.
 
-	void DatabaseImpl::open(const boost::filesystem::path& database, const Options& options)
+	void DatabaseImpl::open(const std::filesystem::path& database, const Options& options)
 	{
 		RAISE_INVALID_ARGUMENT_IF(database.empty(), "database name is empty");
 		options.validate();
@@ -111,7 +111,7 @@ namespace hashdb {
 	//-------------------------------------------------------------------------
 	// Simple API methods.
 
-	void DatabaseImpl::checkSimpleArgumentFor(const boost::string_ref& key, partNum_t partNum) const
+	void DatabaseImpl::checkSimpleArgumentFor(const std::string_view& key, partNum_t partNum) const
 	{
 		RAISE_INVALID_ARGUMENT_IF(key.size() > MAX_KEY_SIZE, "key too long");
 		RAISE_INVALID_ARGUMENT_IF(key.empty(), "empty key is not allowed");
@@ -120,35 +120,35 @@ namespace hashdb {
 		RAISE_INVALID_ARGUMENT_IF(partNum < 0, "negative partNum is not allowed");
 	}
 
-	bool DatabaseImpl::fetch(const boost::string_ref& key, partNum_t partNum, std::string& value)
+	bool DatabaseImpl::fetch(const std::string_view& key, partNum_t partNum, std::string& value)
 	{
 		checkSimpleArgumentFor(key, partNum);
 		SingleRead singleRead(key, partNum, value);
 		return doFetch(singleRead);
 	}
 
-	void DatabaseImpl::store(const boost::string_ref& key, partNum_t partNum, const boost::string_ref& value)
+	void DatabaseImpl::store(const std::string_view& key, partNum_t partNum, const std::string_view& value)
 	{
 		checkSimpleArgumentFor(key, partNum);
 		SingleWrite singleWrite(key, partNum, value);
 		doStore(singleWrite);
 	}
 
-	void DatabaseImpl::remove(const boost::string_ref& key, partNum_t partNum)
+	void DatabaseImpl::remove(const std::string_view& key, partNum_t partNum)
 	{
 		checkSimpleArgumentFor(key, partNum);
 		SingleDelete singleDelete(key, partNum);
 		doRemove(singleDelete);
 	}
 
-	void DatabaseImpl::remove(const boost::string_ref& key)
+	void DatabaseImpl::remove(const std::string_view& key)
 	{
 		checkSimpleArgumentFor(key, 0);
 		SingleDelete singleDelete(key, ALL_PARTS);
 		doRemove(singleDelete);
 	}
 
-	std::vector<partNum_t> DatabaseImpl::listParts(const boost::string_ref& key)
+	std::vector<partNum_t> DatabaseImpl::listParts(const std::string_view& key)
 	{
 		checkSimpleArgumentFor(key, 0);
 		RAISE_INVALID_ARGUMENT_IF(! openDatabase_, "database is not open");
@@ -218,56 +218,56 @@ namespace hashdb {
 	namespace {
 
 		struct ManagedDatabaseFiles {
-			ManagedDatabaseFiles(const boost::filesystem::path& database)
+			ManagedDatabaseFiles(const std::filesystem::path& database)
 				: bucketFile_(OpenFiles::databaseNameToBucketFileName(database))
 				, overflowFile_(OpenFiles::databaseNameToOverflowFileName(database))
 			{
 
 			}
 
-			const boost::filesystem::path bucketFile_;
-			const boost::filesystem::path overflowFile_;
+			const std::filesystem::path bucketFile_;
+			const std::filesystem::path overflowFile_;
 		};
 
-		bool singleFileNotFound(const boost::filesystem::file_status& fileStatus)
+		bool singleFileNotFound(const std::filesystem::file_status& fileStatus)
 		{
-			return fileStatus.type() == boost::filesystem::file_not_found;
+			return fileStatus.type() == std::filesystem::file_not_found;
 		}
 
-		bool singleFileIsNonRegular(const boost::filesystem::file_status& fileStatus)
+		bool singleFileIsNonRegular(const std::filesystem::file_status& fileStatus)
 		{
-			return fileStatus.type() != boost::filesystem::file_not_found
-				&& fileStatus.type() != boost::filesystem::regular_file 
-				&& fileStatus.type() != boost::filesystem::reparse_file
-				&& fileStatus.type() != boost::filesystem::symlink_file;
+			return fileStatus.type() != std::filesystem::file_not_found
+				&& fileStatus.type() != std::filesystem::regular_file
+				&& fileStatus.type() != std::filesystem::reparse_file
+				&& fileStatus.type() != std::filesystem::symlink_file;
 		}
 
-		std::string singleFileTypeString(const boost::filesystem::file_status& fileStatus)
+		std::string singleFileTypeString(const std::filesystem::file_status& fileStatus)
 		{
-			const boost::filesystem::file_type fileType = fileStatus.type();
+			const std::filesystem::file_type fileType = fileStatus.type();
 
 			switch (fileType) {
-			case boost::filesystem::status_error:
+			case std::filesystem::status_error:
 				return "status_error";
-			case boost::filesystem::file_not_found:
+			case std::filesystem::file_not_found:
 				return "file_not_found";
-			case boost::filesystem::regular_file:
+			case std::filesystem::regular_file:
 				return "regular_file";
-			case boost::filesystem::directory_file:
+			case std::filesystem::directory_file:
 				return "directory_file";
-			case boost::filesystem::symlink_file:
+			case std::filesystem::symlink_file:
 				return "symlink_file";
-			case boost::filesystem::block_file:
+			case std::filesystem::block_file:
 				return "block_file";
-			case boost::filesystem::character_file:
+			case std::filesystem::character_file:
 				return "character_file";
-			case boost::filesystem::fifo_file:
+			case std::filesystem::fifo_file:
 				return "fifo_file";
-			case boost::filesystem::socket_file:
+			case std::filesystem::socket_file:
 				return "socket_file";
-			case boost::filesystem::reparse_file:
+			case std::filesystem::reparse_file:
 				return "reparse_file";
-			case boost::filesystem::type_unknown:
+			case std::filesystem::type_unknown:
 				return "type_unknown";
 			default:
 				std::ostringstream os;
@@ -276,18 +276,18 @@ namespace hashdb {
 			}
 		}
 
-		bool singleFileExists(const boost::filesystem::file_status& fileStatus)
+		bool singleFileExists(const std::filesystem::file_status& fileStatus)
 		{
-			return fileStatus.type() == boost::filesystem::regular_file;
+			return fileStatus.type() == std::filesystem::regular_file;
 		}
 
 		bool databaseFilesExist(const ManagedDatabaseFiles& databaseFiles)
 		{
-			boost::system::error_code bucketStatusError;
-			const boost::filesystem::file_status bucketFileStatus = boost::filesystem::status(databaseFiles.bucketFile_, bucketStatusError);
+			std::system::error_code bucketStatusError;
+			const std::filesystem::file_status bucketFileStatus = std::filesystem::status(databaseFiles.bucketFile_, bucketStatusError);
 
-			boost::system::error_code overflowStatusError;
-			const boost::filesystem::file_status overflowFileStatus = boost::filesystem::status(databaseFiles.overflowFile_, overflowStatusError);
+			std::system::error_code overflowStatusError;
+			const std::filesystem::file_status overflowFileStatus = std::filesystem::status(databaseFiles.overflowFile_, overflowStatusError);
 
 			RAISE_IO_ERROR_IF(bucketStatusError   && ! singleFileNotFound(bucketFileStatus),   "existence of the bucket file \"%s\" cannot be determined: %s", databaseFiles.bucketFile_.string(), bucketStatusError.message());
 			RAISE_IO_ERROR_IF(overflowStatusError && ! singleFileNotFound(overflowFileStatus), "existence of the overflow file \"%s\" cannot be determined: %s", databaseFiles.overflowFile_.string(), overflowStatusError.message());
@@ -301,7 +301,7 @@ namespace hashdb {
 
 	} // anonymous namespace
 
-	bool DatabaseImpl::exists(const boost::filesystem::path& database)
+	bool DatabaseImpl::exists(const std::filesystem::path& database)
 	{
 		RAISE_INVALID_ARGUMENT_IF(database.empty(), "database name is empty");
 		RAISE_INVALID_ARGUMENT_IF(openDatabase_, "database is open");
@@ -310,7 +310,7 @@ namespace hashdb {
 		return databaseFilesExist(databaseFiles);
 	}
 
-	bool DatabaseImpl::rename(const boost::filesystem::path& source, const boost::filesystem::path& target)
+	bool DatabaseImpl::rename(const std::filesystem::path& source, const std::filesystem::path& target)
 	{
 		RAISE_INVALID_ARGUMENT_IF(source.empty(), "source database name is empty");
 		RAISE_INVALID_ARGUMENT_IF(target.empty(), "target database name is empty");
@@ -323,30 +323,30 @@ namespace hashdb {
 		const bool canRename = databaseFilesExist(sourceFiles) && ! databaseFilesExist(targetFiles);
 
 		if (canRename) {
-			boost::system::error_code bucketRenameError;
-			boost::filesystem::rename(sourceFiles.bucketFile_, targetFiles.bucketFile_, bucketRenameError);
+			std::system::error_code bucketRenameError;
+			std::filesystem::rename(sourceFiles.bucketFile_, targetFiles.bucketFile_, bucketRenameError);
 			RAISE_IO_ERROR_IF(bucketRenameError, "bucket file \"%s\" cannot be renamed to \"%s\": %s", sourceFiles.bucketFile_.string(), targetFiles.bucketFile_.string(), bucketRenameError.message());
 		
-			boost::system::error_code overflowRenameError;
-			boost::filesystem::rename(sourceFiles.overflowFile_, targetFiles.overflowFile_, overflowRenameError);
+			std::system::error_code overflowRenameError;
+			std::filesystem::rename(sourceFiles.overflowFile_, targetFiles.overflowFile_, overflowRenameError);
 			RAISE_IO_ERROR_IF(overflowRenameError, "overflow file \"%s\" cannot be renamed to \"%s\": %s", sourceFiles.overflowFile_.string(), targetFiles.overflowFile_.string(), overflowRenameError.message());
 		}
 
 		return canRename;
 	}
 
-	bool DatabaseImpl::drop(const boost::filesystem::path& database)
+	bool DatabaseImpl::drop(const std::filesystem::path& database)
 	{
 		RAISE_INVALID_ARGUMENT_IF(database.empty(), "database name is empty");
 		RAISE_INVALID_ARGUMENT_IF(openDatabase_, "database is open");
 
 		ManagedDatabaseFiles databaseFiles(database);
 
-		boost::system::error_code bucketRemoveError;
-		const bool bucketFileExisted = boost::filesystem::remove(databaseFiles.bucketFile_, bucketRemoveError);
+		std::system::error_code bucketRemoveError;
+		const bool bucketFileExisted = std::filesystem::remove(databaseFiles.bucketFile_, bucketRemoveError);
 
-		boost::system::error_code overflowRemoveError;
-		const bool overflowFileExisted = boost::filesystem::remove(databaseFiles.overflowFile_, overflowRemoveError);
+		std::system::error_code overflowRemoveError;
+		const bool overflowFileExisted = std::filesystem::remove(databaseFiles.overflowFile_, overflowRemoveError);
 
 		RAISE_IO_ERROR_IF(bucketRemoveError, "bucket file \"%s\" cannot be deleted: %s", databaseFiles.bucketFile_.string(), bucketRemoveError.message());
 		RAISE_IO_ERROR_IF(overflowRemoveError, "overflow file \"%s\" cannot be deleted: %s", databaseFiles.overflowFile_.string(), overflowRemoveError.message());

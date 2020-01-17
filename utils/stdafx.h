@@ -12,8 +12,8 @@
 
 #include <cstdlib>
 #include <string>
-#include <boost/scoped_ptr.hpp>
-#include <boost/utility/string_ref.hpp>
+#include <memory>
+#include <string_view>
 
 #if defined(_WIN32)
 #include <Windows.h>

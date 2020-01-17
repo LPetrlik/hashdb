@@ -35,7 +35,7 @@ namespace hashdb {
 
 	class SingleRead : public IReadBatch { // intentionally copyable
 	public:
-		SingleRead(const boost::string_ref& key, partNum_t partNum, std::string& value)
+		SingleRead(const std::string_view& key, partNum_t partNum, std::string& value)
 			: key_(key)
 			, partNum_(partNum)
 			, value_(value)
@@ -61,7 +61,7 @@ namespace hashdb {
 			return partNum_;
 		}
 
-		virtual bool setValueAt(size_t, const boost::string_ref& value)
+		virtual bool setValueAt(size_t, const std::string_view& value)
 		{
 			value_.assign(value.begin(), value.end());
 			return true;
@@ -70,7 +70,7 @@ namespace hashdb {
 		virtual bool setLargeValueAt(size_t index, std::istream& valueStream, size_t valueSize);
 
 	private:
-		const boost::string_ref key_;
+		const std::string_view key_;
 		const partNum_t partNum_; 
 		std::string& value_;
 	};

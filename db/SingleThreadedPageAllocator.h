@@ -34,7 +34,7 @@ namespace hashdb {
 
 	class SingleThreadedPageAllocatorCache;
 
-	class SingleThreadedPageAllocator : public IPageAllocator, boost::noncopyable
+	class SingleThreadedPageAllocator : public IPageAllocator, Noncopyable
 	{
 	public:
 		SingleThreadedPageAllocator(size_type maximumHeldBytes);
@@ -48,7 +48,7 @@ namespace hashdb {
 		void init(size_type pageSize);
 
 	private:
-		boost::scoped_ptr<SingleThreadedPageAllocatorCache> cache_;
+        std::unique_ptr<SingleThreadedPageAllocatorCache> cache_;
 		const size_type maximumHeldBytes_;
 		size_type pageSize_;
 	};

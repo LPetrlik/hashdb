@@ -129,7 +129,7 @@ namespace hashdb {
 		return newBucketNumber;
 	}
 
-	uint32_t MetaData::bucketForKey(const boost::string_ref& key) const
+	uint32_t MetaData::bucketForKey(const std::string_view& key) const
 	{
 		const uint32_t hash = hashFun_(key.data(), key.size());
 		const uint32_t bucket = hash & highMask_;

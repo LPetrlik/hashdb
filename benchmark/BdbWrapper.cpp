@@ -81,7 +81,7 @@ namespace benchmark {
 				RAISE_BENCHMARK_EXCEPTION("db_->get failed (number=%u, %s): error=%u", number, keyToString(key), errno);
 			}
 
-			boost::string_ref actualValue(static_cast<char*>(retrievedValueDBT.data), retrievedValueDBT.size);
+			std::string_view actualValue(static_cast<char*>(retrievedValueDBT.data), retrievedValueDBT.size);
 
 			if (expectedValue != actualValue) {
 				RAISE_BENCHMARK_EXCEPTION("unexpected value for key number %u", number);

@@ -34,10 +34,10 @@
 namespace kerio {
 namespace hashdb {
 
-	class OpenFiles : boost::noncopyable
+	class OpenFiles : Noncopyable
 	{
 	public:
-		OpenFiles(const boost::filesystem::path& database, const Options& options, Environment& environment);
+		OpenFiles(const std::filesystem::path& database, const Options& options, Environment& environment);
 		void close();
 		bool isClosed() const;
 		~OpenFiles();
@@ -65,8 +65,8 @@ namespace hashdb {
 		size_type pageSize() const;
 
 		// Utilities
-		static boost::filesystem::path databaseNameToBucketFileName(const boost::filesystem::path& database);
-		static boost::filesystem::path databaseNameToOverflowFileName(const boost::filesystem::path& database);
+		static std::filesystem::path databaseNameToBucketFileName(const std::filesystem::path& database);
+		static std::filesystem::path databaseNameToOverflowFileName(const std::filesystem::path& database);
 
 	private:
 		// Creating/processing header pages.
@@ -78,11 +78,11 @@ namespace hashdb {
 		bool isNew_;
 		size_type pageSize_;
 
-		boost::scoped_ptr<PagedFile> bucketFile_;
-		boost::scoped_ptr<BucketHeaderPage> bucketFileHeader_;
+		std::unique_ptr<PagedFile> bucketFile_;
+		std::unique_ptr<BucketHeaderPage> bucketFileHeader_;
 
-		boost::scoped_ptr<PagedFile> overflowFile_;
-		boost::scoped_ptr<OverflowHeaderPage> overflowFileHeader_;
+		std::unique_ptr<PagedFile> overflowFile_;
+		std::unique_ptr<OverflowHeaderPage> overflowFileHeader_;
 
 		Environment& environment_;
 	};

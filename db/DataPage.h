@@ -83,20 +83,20 @@ namespace hashdb {
 
 		class AddedValueRef { // Intentionally copyable.
 		public:
-			AddedValueRef(const boost::string_ref& value);
+			AddedValueRef(const std::string_view& value);
 			AddedValueRef(size_type valueSize, const PageId& firstLargeValuePage);
 
 			uint16_t valueSizeOrTag() const;
-			boost::string_ref value() const;
+			std::string_view value() const;
 
 		private:
 			const uint16_t valueSizeOrTag_;
-			const boost::string_ref valueReference_;
+			const std::string_view valueReference_;
 			const int64_t largeValueRef_;
 		};
 
 		size_type addSingleRecord(const RecordId& recordId, const AddedValueRef& valueRef);
-		size_type addSingleRecord(const boost::string_ref& recordInlineData);
+		size_type addSingleRecord(const std::string_view& recordInlineData);
 		size_type deleteSingleRecord(const DataPageCursor& cursor);
 
 		PageId nextOverflowPageId();

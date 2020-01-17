@@ -19,78 +19,57 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\benchmark\BdbWrapper.h" />
-    <ClInclude Include="..\..\..\benchmark\Benchmark.h" />
-    <ClInclude Include="..\..\..\benchmark\BenchmarkException.h" />
-    <ClInclude Include="..\..\..\benchmark\BenchmarkOptions.h" />
-    <ClInclude Include="..\..\..\benchmark\DatabaseWrapper.h" />
-    <ClInclude Include="..\..\..\benchmark\DataProducer.h" />
-    <ClInclude Include="..\..\..\benchmark\HashdbWrapper.h" />
-    <ClInclude Include="..\..\..\benchmark\NullDatabaseWrapper.h" />
-    <ClInclude Include="..\..\..\benchmark\ProgressReporter.h" />
-    <ClInclude Include="..\..\..\benchmark\Runner.h" />
-    <ClInclude Include="..\..\..\benchmark\Sequence.h" />
-    <ClInclude Include="..\..\..\benchmark\stdafx.h" />
+    <ClInclude Include="..\..\..\helpers\include\kerio\hashdbHelpers\DeleteBatch.h" />
+    <ClInclude Include="..\..\..\helpers\include\kerio\hashdbHelpers\StdoutLogger.h" />
+    <ClInclude Include="..\..\..\helpers\include\kerio\hashdbHelpers\StringReadBatch.h" />
+    <ClInclude Include="..\..\..\helpers\include\kerio\hashdbHelpers\StringWriteBatch.h" />
+    <ClInclude Include="..\..\..\helpers\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\benchmark\BdbWrapper.cpp" />
-    <ClCompile Include="..\..\..\benchmark\Benchmark.cpp" />
-    <ClCompile Include="..\..\..\benchmark\BenchmarkOptions.cpp" />
-    <ClCompile Include="..\..\..\benchmark\DataProducer.cpp" />
-    <ClCompile Include="..\..\..\benchmark\HashdbWrapper.cpp" />
-    <ClCompile Include="..\..\..\benchmark\main.cpp" />
-    <ClCompile Include="..\..\..\benchmark\NullDatabaseWrapper.cpp" />
-    <ClCompile Include="..\..\..\benchmark\ProgressReporter.cpp" />
-    <ClCompile Include="..\..\..\benchmark\Runner.cpp" />
-    <ClCompile Include="..\..\..\benchmark\Sequence.cpp" />
-    <ClCompile Include="..\..\..\benchmark\stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    <ClCompile Include="..\..\..\helpers\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\..\..\helpers\StdoutLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bdb1.86\bdb1.86.vcxproj">
-      <Project>{2225f647-8eee-4c0a-9e50-9252ca940705}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\db\db.vcxproj">
-      <Project>{3f879493-10a1-4592-b9be-35f141ca8d65}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\helpers\helpers.vcxproj">
-      <Project>{9eb18608-e26b-45fa-ae9d-4330482f25ef}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\utils\utils.vcxproj">
       <Project>{4e8a21af-2c11-4f14-aa37-8e03614e6032}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AADF5FFD-C19C-4E2C-A25C-A4895E936E37}</ProjectGuid>
+    <ProjectGuid>{9EB18608-E26B-45FA-AE9D-4330482F25EF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>benchmark</RootNamespace>
+    <RootNamespace>helpers</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -98,57 +77,39 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropSheet\hashdb_headers.props" />
-    <Import Project="..\PropSheet\root_headers.props" />
     <Import Project="..\PropSheet\hashdbHelpers_headers.props" />
-    <Import Project="..\PropSheet\bdb1_86_headers.props" />
     <Import Project="..\PropSheet\boost32.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropSheet\hashdb_headers.props" />
-    <Import Project="..\PropSheet\root_headers.props" />
     <Import Project="..\PropSheet\hashdbHelpers_headers.props" />
-    <Import Project="..\PropSheet\bdb1_86_headers.props" />
     <Import Project="..\PropSheet\boost64.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropSheet\hashdb_headers.props" />
-    <Import Project="..\PropSheet\root_headers.props" />
     <Import Project="..\PropSheet\hashdbHelpers_headers.props" />
-    <Import Project="..\PropSheet\bdb1_86_headers.props" />
     <Import Project="..\PropSheet\boost32.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropSheet\hashdb_headers.props" />
-    <Import Project="..\PropSheet\root_headers.props" />
     <Import Project="..\PropSheet\hashdbHelpers_headers.props" />
-    <Import Project="..\PropSheet\bdb1_86_headers.props" />
     <Import Project="..\PropSheet\boost64.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -157,10 +118,11 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -171,10 +133,11 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
@@ -187,10 +150,11 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>

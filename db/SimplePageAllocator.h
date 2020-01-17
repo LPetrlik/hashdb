@@ -32,7 +32,7 @@
 namespace kerio {
 namespace hashdb {
 
-	class SimplePageAllocator : public IPageAllocator, boost::noncopyable
+	class SimplePageAllocator : public IPageAllocator, Noncopyable
 	{
 	public:
 		virtual PageMemoryPtr allocate(size_type size);

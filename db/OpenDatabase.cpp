@@ -279,7 +279,7 @@ namespace hashdb {
 	//-------------------------------------------------------------------------
 	// Listing all parts.
 
-	std::vector<partNum_t> OpenDatabase::listParts(const boost::string_ref& key)
+	std::vector<partNum_t> OpenDatabase::listParts(const std::string_view& key)
 	{
 		const uint32_t bucketNumber = metaData_.bucketForKey(key);
 		PageId pageId(bucketFilePage(bucketNumber + 1));
@@ -336,7 +336,7 @@ namespace hashdb {
 	bool OpenDatabase::fetchSingleValueAt(SingleRequestCache& cache, IReadBatch& readBatch, size_t index)
 	{
 		const StringOrReference keyHolder = readBatch.keyAt(index);
-		const boost::string_ref key = keyHolder.getRef();
+		const std::string_view key = keyHolder.getRef();
 		
 		const partNum_t partNum = readBatch.partNumAt(index);
 		const RecordId recordId(key, partNum);
@@ -446,7 +446,7 @@ namespace hashdb {
 		metaData_.recordRemoved(removedRecordInlineSize);
 	}
 
-	void OpenDatabase::removeSingleValue(SingleRequestCache& cache, const boost::string_ref& key, partNum_t partNum)
+	void OpenDatabase::removeSingleValue(SingleRequestCache& cache, const std::string_view& key, partNum_t partNum)
 	{
 		const RecordId recordId(key, partNum);
 		
@@ -468,7 +468,7 @@ namespace hashdb {
 		}
 	}
 
-	void OpenDatabase::removeAllParts(SingleRequestCache& cache, const boost::string_ref& key)
+	void OpenDatabase::removeAllParts(SingleRequestCache& cache, const std::string_view& key)
 	{
 		const uint32_t bucketNumber = metaData_.bucketForKey(key);
 		PageId pageId(bucketFilePage(bucketNumber + 1));
@@ -555,7 +555,7 @@ namespace hashdb {
 
 		size_type addRecord(const DataPageCursor& cursor)
 		{
-			const boost::string_ref recordInlineData = cursor.inlineRecord();
+			const std::string_view recordInlineData = cursor.inlineRecord();
 			size_type addedSize = lastPage().addSingleRecord(recordInlineData);
 
 			if (addedSize == 0) {
@@ -652,7 +652,7 @@ namespace hashdb {
 			DataPageCursor cursor(&page);
 
 			while (cursor.isValid()) {
-				const boost::string_ref key = cursor.key();
+				const std::string_view key = cursor.key();
 				const uint32_t bucket = metaData_.bucketForKey(key);
 				
 				HASHDB_LOG_DEBUG_DETAIL("Split of bucket %u: record key=\"%s\" (%s) moved to bucket %u", chainBeingSplit.bucket(), cursor.key(), pageId.toString(), bucket);
@@ -747,7 +747,7 @@ namespace hashdb {
 		return addedSize;
 	}
 
-	void OpenDatabase::storeSingleValue(SingleRequestCache& cache, const boost::string_ref& key, partNum_t partNum, const boost::string_ref& value)
+	void OpenDatabase::storeSingleValue(SingleRequestCache& cache, const std::string_view& key, partNum_t partNum, const std::string_view& value)
 	{
 		const RecordId recordId(key, partNum);
 

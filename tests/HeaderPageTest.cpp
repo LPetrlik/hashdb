@@ -60,7 +60,7 @@ void HeaderPageTest::testDecodePage()
 
 	BucketHeaderPage page(allocator_.get(), PAGE_SIZE);
 	page.clear();
-	page.putBytes(0, boost::string_ref(reinterpret_cast<const char*>(&pageData[0]), sizeof(pageData)));
+	page.putBytes(0, std::string_view(reinterpret_cast<const char*>(&pageData[0]), sizeof(pageData)));
 	page.clearDirtyFlag();
 
 	TS_ASSERT_EQUALS(page.getMagic(), 0x078d75c8U);
