@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +39,7 @@ namespace hashdb {
 
 		uint32_t computeMaskFrom(const uint32_t highestBucket)
 		{
-			register uint32_t mask = highestBucket + 1;
+			uint32_t mask = highestBucket + 1;
 
 			mask |= (mask >> 1);
 			mask |= (mask >> 2);

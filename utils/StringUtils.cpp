@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +40,7 @@ namespace hashdb {
 	{
 		char buf[9];
 #if defined _WIN32
-		_snprintf(buf, sizeof(buf), "%x", num);
+		_snprintf_s(buf, _TRUNCATE, "%x", num);
 #else
 		snprintf(buf, sizeof(buf), "%x", num);
 #endif
