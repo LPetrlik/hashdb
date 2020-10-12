@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,5 +44,5 @@ public:
 private:
 	std::string fileName_;
 	kerio::hashdb::Environment environment_;
-	boost::scoped_ptr<kerio::hashdb::IPageAllocator> allocator_;
+	std::unique_ptr<kerio::hashdb::IPageAllocator> allocator_;
 };

@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +39,7 @@ void StringReadBatchTest::testSingleRead()
 	const partNum_t expectedPartNum = 123;
 	const std::string expectedValue("Aldq30	r30edjk39dmd3d23d d32-23d\\");
 
-	boost::scoped_ptr<StringReadBatch> singleRead(new StringReadBatch);
+	std::unique_ptr<StringReadBatch> singleRead(new StringReadBatch);
 	singleRead->add(expectedKey, expectedPartNum);
 
 	TS_ASSERT_EQUALS(singleRead->count(), 1U);
@@ -62,7 +63,7 @@ void StringReadBatchTest::testSingleReadLargeValue()
 	const partNum_t expectedPartNum = 123;
 	const std::string expectedValue = valueOfSize(64 * 1024 + 13);
 
-	boost::scoped_ptr<StringReadBatch> singleRead(new StringReadBatch);
+	std::unique_ptr<StringReadBatch> singleRead(new StringReadBatch);
 	singleRead->add(expectedKey, expectedPartNum);
 
 	TS_ASSERT_EQUALS(singleRead->count(), 1U);
@@ -88,7 +89,7 @@ void StringReadBatchTest::testMultipleReads()
 	const partNum_t expectedPartNum2 = 0;
 	const std::string expectedValue2("ncu9487nd43cr48c4n73489t57894rcm48mxrm48r4xr84r4m3r834xr834r834x7r3489t73489t73489xt7348978");
 
-	boost::scoped_ptr<StringReadBatch> readBatch(new StringReadBatch);
+	std::unique_ptr<StringReadBatch> readBatch(new StringReadBatch);
 
 	readBatch->add(expectedKey1, expectedPartNum1);
 	readBatch->add(expectedKey2, expectedPartNum2);

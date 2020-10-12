@@ -27,6 +27,7 @@
  */
 #pragma once
 #include <vector>
+#include <charconv>
 
 namespace kerio {
 namespace hashdb {
@@ -46,6 +47,13 @@ namespace hashdb {
 
 	private:
 		std::string_view findOption(std::string_view optionName);
+
+        template<typename T>
+        bool convertNumericValue( T& value, std::string_view decimal )
+        {
+            const auto result = std::from_chars( decimal.data(), decimal.data() + decimal.size(), value );
+            return result.ec == std::errc() && result.ptr == decimal.data() + decimal.size();
+        }
 
 	private:
 		const int argc_; 

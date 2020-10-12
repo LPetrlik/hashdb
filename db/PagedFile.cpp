@@ -104,7 +104,7 @@ namespace hashdb {
 		return errorDescription;
 	}
 
-	PagedFile::PagedFile(const boost::filesystem::path& fileName, PageId::DatabaseFile_t fileType, const Options& options, Environment& environment)
+	PagedFile::PagedFile(const std::filesystem::path& fileName, PageId::DatabaseFile_t fileType, const Options& options, Environment& environment)
 		: fileName_(fileName.string())
 		, fileType_(fileType)
 		, pageSize_(options.pageSize_)
@@ -242,7 +242,7 @@ namespace hashdb {
 		return rv;
 	}
 
-	PagedFile::PagedFile(const boost::filesystem::path& fileName, PageId::DatabaseFile_t fileType, const Options& options, Environment& environment)
+	PagedFile::PagedFile(const std::filesystem::path& fileName, PageId::DatabaseFile_t fileType, const Options& options, Environment& environment)
 		: fileName_(fileName.string())
 		, fileType_(fileType)
 		, pageSize_(options.pageSize_)

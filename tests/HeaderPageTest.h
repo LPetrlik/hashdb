@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +38,6 @@ public:
 	void testSetUpAndValidateOverflowPage();
 
 private:
-	boost::scoped_ptr<kerio::hashdb::IPageAllocator> allocator_;
+	std::unique_ptr<kerio::hashdb::IPageAllocator> allocator_;
 };
 

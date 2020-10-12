@@ -38,7 +38,7 @@ void SingleWriteHelperTest::testSingleWriteHelper()
 	const partNum_t expectedPartNum = 13;
 	const std::string_view expectedValue("l42OJZmo52O7jkRdaSPwGHledilbvs7Vkfi7nEE/oM0NIrZHBnxgiHWKEw==");
 
-	boost::scoped_ptr<IWriteBatch> singleWrite(new SingleWrite(expectedKey, expectedPartNum, expectedValue));
+	std::unique_ptr<IWriteBatch> singleWrite(new SingleWrite(expectedKey, expectedPartNum, expectedValue));
 	TS_ASSERT_EQUALS(singleWrite->count(), 1U);
 	TS_ASSERT_EQUALS(singleWrite->keyAt(0).getRef(), expectedKey);
 	TS_ASSERT_EQUALS(singleWrite->partNumAt(0), expectedPartNum);

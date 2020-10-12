@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,11 +42,11 @@ namespace tool {
 		Database createNewDatabase(size_t preallocatedSize = 0) const;
 		Command command_;
 	
-		boost::filesystem::path databasePath_;	// --db=str
-		boost::filesystem::path dir_;			// --dir=directory
-		bool log_;						// --log
+		std::filesystem::path databasePath_;	// --db=str
+		std::filesystem::path dir_;				// --dir=directory
+		bool log_;								// --log
 
-		bool quiet_;					// --quiet
+		bool quiet_;							// --quiet
 	};
 
 }; // namespace tool

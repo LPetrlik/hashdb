@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +41,7 @@ void DeleteBatchTest::testDeleteBatch()
 	const std::string expectedKey2("ad;skd;d;lqkdlqd;cdl;ckd;lc;l;kd;lcfkd");
 	const partNum_t expectedPartNum2 = ALL_PARTS;
 
-	boost::scoped_ptr<DeleteBatch> deleteBatch(new DeleteBatch);
+	std::unique_ptr<DeleteBatch> deleteBatch(new DeleteBatch);
 	deleteBatch->add(expectedKey1, expectedPartNum1);
 	deleteBatch->add(expectedKey2, expectedPartNum2);
 

@@ -44,7 +44,7 @@ void SingleThreadedPageAllocatorTest::testInvalidRequest()
 	const size_type cachePages = 5;
 	const size_type cacheSize = pageSize * cachePages;
 
-	boost::scoped_ptr<IPageAllocator> allocator(new SingleThreadedPageAllocator(cacheSize));
+	std::unique_ptr<IPageAllocator> allocator(new SingleThreadedPageAllocator(cacheSize));
 	TS_ASSERT_THROWS(allocator->allocate(0), InternalErrorException);
 	TS_ASSERT_THROWS(allocator->allocate(333), InternalErrorException);
 	TS_ASSERT_THROWS(allocator->deallocate(NULL, NULL), InternalErrorException);
@@ -67,7 +67,7 @@ void SingleThreadedPageAllocatorTest::testAllocate()
 	const size_type cacheSize = pageSize * cachePages;
 	const size_type testMaxPages = 10;
 
-	boost::scoped_ptr<IPageAllocator> allocator(new SingleThreadedPageAllocator(cacheSize));
+	std::unique_ptr<IPageAllocator> allocator(new SingleThreadedPageAllocator(cacheSize));
 
 	std::vector<IPageAllocator::PageMemoryPtr> allocatedEntries;
 

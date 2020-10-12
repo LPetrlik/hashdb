@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,9 +32,8 @@
 #pragma warning(disable: 4724)      // potential mod by 0
 #endif // defined _MSC_VER
 
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_int_distribution.hpp>
-#include <boost/algorithm/cxx11/is_sorted.hpp>
+#include <random>
+#include <algorithm>
 
 #if defined _MSC_VER
 #pragma warning(pop)
@@ -332,8 +332,8 @@ void VectorTest::testLargeSort()
 	Vector_t mutableVector;
 
 	// Add, sort and test.
-	boost::random::mt19937 rng(12345);
-	boost::random::uniform_int_distribution<int> dist(-1000, 1000);
+	std::mt19937 rng(12345);
+	std::uniform_int_distribution<int> dist(-1000, 1000);
 
 	for (int i = 0; i < maxInts; ++i) {
 		mutableVector.push_back(dist(rng));
@@ -342,7 +342,7 @@ void VectorTest::testLargeSort()
 	std::sort(mutableVector.begin(), mutableVector.end());
 
 	mutableVector.sort();
-	const bool isSorted = boost::algorithm::is_sorted(mutableVector.begin(), mutableVector.end());
+	const bool isSorted = std::is_sorted(mutableVector.begin(), mutableVector.end());
 	TS_ASSERT(isSorted);
 }
 

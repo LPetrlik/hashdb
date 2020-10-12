@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,5 +38,5 @@ public:
 	void testSingleByteValue();
 
 private:
-	boost::scoped_ptr<TestPageAllocator> allocator_;
+	std::unique_ptr<TestPageAllocator> allocator_;
 };

@@ -33,3 +33,4 @@ build/VS2010/HashDB.VC.db
 # Other
 __pycache__/
 build/generated/runner.cpp
+/build/VS2019/.vs/HashDB/v16

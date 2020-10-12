@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,10 +32,12 @@
 #define KERIO_WIN32
 #endif
 
+#include <bdb/db.h>
+#undef snprintf
+
 #include <sstream>
 #include <kerio/hashdb/Types.h>
 #include <kerio/hashdb/Exception.h>
-#include <bdb/db.h>
 #include <fcntl.h>
 #include "utils/ExceptionCreator.h"
 #include "utils/ConfigUtils.h"

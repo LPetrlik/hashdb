@@ -34,13 +34,13 @@
 namespace kerio {
 namespace hashdb {
 
-	class DatabaseImpl : public IDatabase, boost::noncopyable
+	class DatabaseImpl : public IDatabase, Noncopyable
 	{
 	public:
 		DatabaseImpl();
 		virtual ~DatabaseImpl();
 
-		virtual void open(const boost::filesystem::path& database, const Options& options);
+		virtual void open(const std::filesystem::path& database, const Options& options);
 		virtual void close();
 		virtual void flush();
 		virtual void sync();
@@ -63,16 +63,16 @@ namespace hashdb {
 
 		virtual Statistics statistics();
 
-		virtual bool exists(const boost::filesystem::path& database);
-		virtual bool rename(const boost::filesystem::path& source, const boost::filesystem::path& target);
-		virtual bool drop(const boost::filesystem::path& database);
+		virtual bool exists(const std::filesystem::path& database);
+		virtual bool rename(const std::filesystem::path& source, const std::filesystem::path& target);
+		virtual bool drop(const std::filesystem::path& database);
 
 	private:
 		bool doFetch(IReadBatch& readBatch);
 		void doStore(const IWriteBatch& writeBatch);
 		void doRemove(const IDeleteBatch& deleteBatch);
 
-		boost::shared_ptr<OpenDatabase> openDatabase_;
+		std::shared_ptr<OpenDatabase> openDatabase_;
 	};
 
 }; // namespace hashdb

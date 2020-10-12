@@ -57,7 +57,7 @@ namespace hashdb {
 
 		IteratorPosition position_;
 
-		boost::weak_ptr<OpenDatabase> openDatabaseWeakPtr_;
+		std::weak_ptr<OpenDatabase> openDatabaseWeakPtr_;
 	};
 
 }; // namespace hashdb

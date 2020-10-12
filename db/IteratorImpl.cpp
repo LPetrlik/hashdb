@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +36,7 @@ namespace hashdb {
 	//-------------------------------------------------------------------------
 	// Construction & destruction.
 
-	IteratorImpl::IteratorImpl(boost::shared_ptr<OpenDatabase>& openDatabase)
+	IteratorImpl::IteratorImpl(std::shared_ptr<OpenDatabase>& openDatabase)
 		: openDatabaseWeakPtr_(openDatabase)
 	{
 		isValid_ = openDatabase->iteratorFetch(position_, key_, partNum_, value_);
@@ -79,7 +80,7 @@ namespace hashdb {
 
 	void IteratorImpl::next()
 	{
-		boost::shared_ptr<OpenDatabase> openDatabase(openDatabaseWeakPtr_.lock());
+		std::shared_ptr<OpenDatabase> openDatabase(openDatabaseWeakPtr_.lock());
 		RAISE_INVALID_ARGUMENT_IF(! openDatabase, "Referenced database is no longer open.");
 		isValid_ = openDatabase->iteratorFetch(position_, key_, partNum_, value_);
 	}

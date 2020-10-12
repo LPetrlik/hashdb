@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +42,7 @@ void StringWriteBatchTest::testMultipleWrites()
 	const partNum_t expectedPartNum2 = 99;
 	const std::string expectedValue2("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 	
-	boost::scoped_ptr<StringWriteBatch> writeBatch(new StringWriteBatch);
+	std::unique_ptr<StringWriteBatch> writeBatch(new StringWriteBatch);
 
 	TS_ASSERT_EQUALS(0U, writeBatch->approxDataSize());
 

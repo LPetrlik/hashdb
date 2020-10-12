@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -58,7 +59,7 @@ namespace hashdb {
 
 	}
 
-	kerio::hashdb::Options Options::readOnlySingleThreaded(boost::shared_ptr<ILogger> logger)
+	kerio::hashdb::Options Options::readOnlySingleThreaded(std::shared_ptr<ILogger> logger)
 	{
 		Options options;
 		options.createIfMissing_ = false;
@@ -69,11 +70,11 @@ namespace hashdb {
 
 	Options Options::readOnlySingleThreaded()
 	{
-		boost::shared_ptr<ILogger> logger(new NullLogger());
+		std::shared_ptr<ILogger> logger(new NullLogger());
 		return readOnlySingleThreaded(logger);
 	}
 
-	kerio::hashdb::Options Options::readWriteSingleThreaded(boost::shared_ptr<ILogger> logger)
+	kerio::hashdb::Options Options::readWriteSingleThreaded(std::shared_ptr<ILogger> logger)
 	{
 		Options options;
 		options.logger_ = logger;
@@ -82,7 +83,7 @@ namespace hashdb {
 
 	Options Options::readWriteSingleThreaded()
 	{
-		boost::shared_ptr<ILogger> logger(new NullLogger());
+		std::shared_ptr<ILogger> logger(new NullLogger());
 		return readWriteSingleThreaded(logger);
 	}
 

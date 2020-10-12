@@ -54,5 +54,5 @@ public:
 	void testAddInlineRecordData();
 
 private:
-	boost::scoped_ptr<TestPageAllocator> allocator_;
+	std::unique_ptr<TestPageAllocator> allocator_;
 };

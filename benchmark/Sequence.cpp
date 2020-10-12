@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +33,7 @@
 #pragma warning(disable: 4724)      // potential mod by 0
 #endif // defined _MSC_VER
 
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_int_distribution.hpp>
+#include <random>
 
 #if defined _MSC_VER
 #pragma warning(pop)
@@ -72,8 +72,8 @@ namespace benchmark {
 		virtual ~RandomSequence() { }
 
 	private:
-		boost::random::mt19937 generator_;
-		boost::random::uniform_int_distribution<> distribution_;
+		std::mt19937 generator_;
+		std::uniform_int_distribution<> distribution_;
 		size_type sequenceNumber_;
 		const size_type sequenceSize_;
 	};

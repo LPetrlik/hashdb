@@ -42,7 +42,7 @@ namespace hashdb {
 
 	namespace {
 
-		boost::filesystem::path createFileName(const std::filesystem::path& database, const std::string& suffix)
+		std::filesystem::path createFileName(const std::filesystem::path& database, const std::string& suffix)
 		{
 			std::filesystem::path file(database);
 			std::filesystem::path extension(suffix);
@@ -53,28 +53,28 @@ namespace hashdb {
 
 	};
 
-	boost::filesystem::path OpenFiles::databaseNameToBucketFileName(const boost::filesystem::path& database)
+	std::filesystem::path OpenFiles::databaseNameToBucketFileName(const std::filesystem::path& database)
 	{
 		return createFileName(database, ".dbb");
 	}
 
-	boost::filesystem::path OpenFiles::databaseNameToOverflowFileName(const boost::filesystem::path& database)
+	std::filesystem::path OpenFiles::databaseNameToOverflowFileName(const std::filesystem::path& database)
 	{
 		return createFileName(database, ".dbo");
 	}
 
-	OpenFiles::OpenFiles(const boost::filesystem::path& database, const Options& options, Environment& environment)
+	OpenFiles::OpenFiles(const std::filesystem::path& database, const Options& options, Environment& environment)
 		: environment_(environment)
 	{
 		HASHDB_LOG_DEBUG("Opening database %s", database.string());
 
 		try {
 			
-			boost::filesystem::path bucketFileName = databaseNameToBucketFileName(database);
+			std::filesystem::path bucketFileName = databaseNameToBucketFileName(database);
 			bucketFile_.reset(new PagedFile(bucketFileName, PageId::BucketFileType, options, environment));
 			const PagedFile::fileSize_t bucketFileSize = bucketFile_->size();
 
-			boost::filesystem::path overflowFileName = databaseNameToOverflowFileName(database);
+			std::filesystem::path overflowFileName = databaseNameToOverflowFileName(database);
 			overflowFile_.reset(new PagedFile(overflowFileName, PageId::OverflowFileType, options, environment));
 			const PagedFile::fileSize_t overflowFileSize = overflowFile_->size(); 
 

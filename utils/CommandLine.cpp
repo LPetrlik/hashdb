@@ -87,13 +87,7 @@ namespace hashdb {
 		bool success = false;
 
 		if (!refValue.empty()) {
-            const std::string scanValue{ refValue };
-			unsigned scanResult;
-
-			if (sscanf(scanValue.c_str(), "%u", &scanResult) == 1) {
-				value = scanResult;
-				success = true;
-			}
+			success = convertNumericValue( value, refValue );
 		}
 
 		return success;
@@ -106,13 +100,7 @@ namespace hashdb {
 		bool success = false;
 
 		if (!refValue.empty()) {
-            const std::string scanValue{ refValue };
-			int scanResult;
-
-			if (sscanf(scanValue.c_str(), "%d", &scanResult) == 1) {
-				value = scanResult;
-				success = true;
-			}
+			success = convertNumericValue( value, refValue );
 		}
 
 		return success;

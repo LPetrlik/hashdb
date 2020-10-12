@@ -1,5 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
- * * Copyright (c) 2020 Lukas Petrlik
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 
 // StringUtils.h - string utilities.
 #pragma once
-#include <stdarg.h>
+#include <cstdio>
 #include <kerio/hashdb/Types.h>
 
 namespace kerio {

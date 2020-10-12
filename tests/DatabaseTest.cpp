@@ -117,7 +117,7 @@ namespace {
 	void doTestCreateEmpty(Database db, const std::string& name, size_type pageSize)
 	{
 		// Create, close, open.
-		boost::shared_ptr<TestLogger> testLogger(new TestLogger);
+		std::shared_ptr<TestLogger> testLogger(new TestLogger);
 
 		Options options = Options::readWriteSingleThreaded();
 		options.pageSize_ = pageSize;

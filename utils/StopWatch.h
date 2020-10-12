@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +26,7 @@
  * copyright holder.
  */
 #pragma once
+#include <chrono>
 
 namespace kerio {
 namespace hashdb {
@@ -32,11 +34,10 @@ namespace hashdb {
 	class StopWatch {
 	public:
 		StopWatch();
-		~StopWatch();
 		double seconds() const;
 
 	private:
-		std::unique_ptr<class StopWatchImpl> pimpl_;
+		std::chrono::steady_clock::time_point start_;
 	};
 
 }; // namespace hashdb

@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -107,7 +108,7 @@ namespace benchmark {
 			databaseWrapperFactory_ = newNullDatabaseWrapperFactory();
 		}
 		else {
-			RAISE_INVALID_ARGUMENT("Unknown database type \"%s\"", dbType.to_string());
+			RAISE_INVALID_ARGUMENT( "Unknown database type \"%s\"", std::string{ dbType } );
 		}
 
 		// Benchmark type.
@@ -182,7 +183,7 @@ namespace benchmark {
 			keyProducer_ = newStringDataProducer(keyPrefix);
 		}
 		else {
-			RAISE_INVALID_ARGUMENT("Unknown key type \"%s\"", keyType.to_string());
+			RAISE_INVALID_ARGUMENT( "Unknown key type \"%s\"", std::string{ keyType } );
 		}
 
 		size_type valuePrefixSize = 0;
@@ -208,18 +209,18 @@ namespace benchmark {
 			valueProducer_ = newNullDataProducer(valuePrefix);
 		}
 		else {
-			RAISE_INVALID_ARGUMENT("Unknown value type \"%s\"", valueType.to_string());
+			RAISE_INVALID_ARGUMENT( "Unknown value type \"%s\"", std::string{ valueType } );
 		}
 
 		// Output.
 		verbose_ = arguments.hasOption("--verbose");
 		disableResultsCsv_ = arguments.hasOption("--disable-csv");
-		csvLabel_ = arguments.optionRef("--label").to_string();
+		csvLabel_ = std::string{ arguments.optionRef( "--label" ) };
 
 		// Database name.
 		const std::string_view db = arguments.optionRef("--db");
 		if (! db.empty()) {
-			databaseName_ = db.to_string();
+			databaseName_ = std::string{ db };
 		}
 		else {
 			databaseName_ = "db_" + databaseWrapperFactory_->name();

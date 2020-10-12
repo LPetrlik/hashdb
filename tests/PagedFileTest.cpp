@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -76,7 +77,7 @@ void PagedFileTest::testFileOpen()
 
 	// Create non-existing file should succeed.
 	options.createIfMissing_ = true;
-	boost::scoped_ptr<PagedFile> file;
+	std::unique_ptr<PagedFile> file;
 
 	TS_ASSERT_THROWS_NOTHING(file.reset(new PagedFile(fileName_, PageId::BucketFileType, options, environment_)));
 	TS_ASSERT_THROWS_NOTHING(file->close());
@@ -103,7 +104,7 @@ void PagedFileTest::testPageSize()
 
 	// Create paged file and check page size.
 	Options options = Options::readWriteSingleThreaded();
-	boost::scoped_ptr<PagedFile> file;
+	std::unique_ptr<PagedFile> file;
 
 	TS_ASSERT_THROWS_NOTHING(file.reset(new PagedFile(fileName_, PageId::BucketFileType, options, environment_)));
 	TS_ASSERT_EQUALS(file->pageSize(), options.pageSize_);
@@ -141,7 +142,7 @@ void PagedFileTest::testReadWrite()
 	Options options = Options::readWriteSingleThreaded();
 	options.pageSize_ = PAGE_SIZE;
 
-	boost::scoped_ptr<PagedFile> file;
+	std::unique_ptr<PagedFile> file;
 	TS_ASSERT_THROWS_NOTHING(file.reset(new PagedFile(fileName_, PageId::BucketFileType, options, environment_)));
 	TS_ASSERT_EQUALS(file->size(), 0U);
 
@@ -237,7 +238,7 @@ void PagedFileTest::testReadOnly()
 	// Create a paged file.
 	Options options = Options::readWriteSingleThreaded();
 
-	boost::scoped_ptr<PagedFile> file;
+	std::unique_ptr<PagedFile> file;
 	TS_ASSERT_THROWS_NOTHING(file.reset(new PagedFile(fileName_, PageId::BucketFileType, options, environment_)));
 	TS_ASSERT_EQUALS(file->size(), 0U);
 

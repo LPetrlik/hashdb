@@ -44,7 +44,7 @@ namespace hashdb {
 	class SingleRequestCache;
 	class SplitPages;
 
-	class OpenDatabase : boost::noncopyable
+	class OpenDatabase : Noncopyable
 	{
 	public:
 		static const size_type ASSUMED_OVERFLOW_CHAIN_MAX_SIZE = 10;
@@ -54,7 +54,7 @@ namespace hashdb {
 		static const size_type ASSUMED_BATCH_SIZE_MAX_SIZE = 1000;
 
 	public:
-		OpenDatabase(const boost::filesystem::path& database, const Options& options);
+		OpenDatabase(const std::filesystem::path& database, const Options& options);
 		void close();
 		bool isClosed() const;
 		~OpenDatabase();

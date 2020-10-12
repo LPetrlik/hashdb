@@ -37,7 +37,7 @@ void SingleDeleteHelperTest::testSingleDeleteHelper()
 	const std::string_view expectedKey("a");
 	const partNum_t expectedPartNum = 0;
 	
-	boost::scoped_ptr<IDeleteBatch> singleDelete(new SingleDelete(expectedKey, expectedPartNum));
+	std::unique_ptr<IDeleteBatch> singleDelete(new SingleDelete(expectedKey, expectedPartNum));
 	TS_ASSERT_EQUALS(singleDelete->count(), 1U);
 	TS_ASSERT_EQUALS(singleDelete->keyAt(0).getRef(), expectedKey);
 	TS_ASSERT_EQUALS(singleDelete->partNumAt(0), expectedPartNum);

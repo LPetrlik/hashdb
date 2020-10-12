@@ -79,13 +79,13 @@ namespace tool {
 		// Directory.
 		const std::string_view dirOption = arguments.optionRef("--dir");
 		if (! dirOption.empty()) {
-			dir_ = dirOption.to_string();
+			dir_ = dirOption;
 		}
 
 		// Database name.
 		const std::string_view dbOption = arguments.optionRef("--db");
 		if (! dbOption.empty()) {
-			databasePath_ = dir_ / dbOption.to_string();
+			databasePath_ = dir_ / dbOption;
 		}
 		else {
 			databasePath_ += dir_ / "metadata";

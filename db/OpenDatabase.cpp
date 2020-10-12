@@ -30,8 +30,6 @@
 #include "stdafx.h"
 #include <limits>
 #include <iostream>
-#include <boost/iostreams/device/array.hpp>
-#include <boost/iostreams/stream.hpp>
 #include <kerio/hashdb/StringOrReference.h>
 #include "BucketDataPage.h"
 #include "OverflowDataPage.h"
@@ -191,7 +189,7 @@ namespace hashdb {
 	//-------------------------------------------------------------------------
 	// Creation and destruction.
 
-	OpenDatabase::OpenDatabase(const boost::filesystem::path& database, const Options& options)
+	OpenDatabase::OpenDatabase(const std::filesystem::path& database, const Options& options)
 		: environment_(options)
 		, openFiles_(database, options, environment_)
 		, metaData_(environment_, openFiles_, options)

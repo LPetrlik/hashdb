@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +41,7 @@ namespace tool {
 		virtual ~ICommand() { };
 	};
 
-	typedef boost::shared_ptr<ICommand> Command;
+	typedef std::shared_ptr<ICommand> Command;
 
 }; // namespace tool
 }; // namespace hashdb

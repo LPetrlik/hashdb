@@ -1,4 +1,5 @@
 /* Copyright (c) 2015 Kerio Technologies s.r.o.
+ * Copyright (c) 2020 Lukas Petrlik
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,131 +26,20 @@
  * copyright holder.
  */
 #include "stdafx.h"
-
-#if defined _LINUX
-#include <time.h>
-#if ! defined CLOCK_MONOTONIC_RAW // Workaround for Debian 6
-#define CLOCK_MONOTONIC_RAW		4
-#endif // ! defined CLOCK_MONOTONIC_RAW
-#elif defined _MACOS
-#include <mach/mach.h>
-#include <mach/mach_time.h>
-#endif
-
-#include <kerio/hashdb/Exception.h>
-#include "ExceptionCreator.h"
 #include "StopWatch.h"
 
 namespace kerio {
 namespace hashdb {
 
-#if defined _WIN32
-
-	class StopWatchImpl {
-	public:
-		StopWatchImpl()
-		{
-			GetSystemTime(&startTime_);
-		}
-
-		double seconds() const
-		{
-			SYSTEMTIME now;
-			GetSystemTime(&now);
-
-			FILETIME ftStart;
-			RAISE_INTERNAL_ERROR_IF_ARG(! SystemTimeToFileTime(&startTime_, &ftStart));
-
-			ULARGE_INTEGER ulStart;
-			ulStart.HighPart = ftStart.dwHighDateTime;
-			ulStart.LowPart = ftStart.dwLowDateTime;
-
-			FILETIME ftNow;
-			RAISE_INTERNAL_ERROR_IF_ARG(! SystemTimeToFileTime(&now, &ftNow));
-
-			ULARGE_INTEGER ulNow;
-			ulNow.HighPart = ftNow.dwHighDateTime;
-			ulNow.LowPart = ftNow.dwLowDateTime;
-
-			ULONGLONG difference = (ulNow.QuadPart - ulStart.QuadPart) / 10000;
-			double seconds = difference / 1000.0;
-
-			return seconds;
-		}
-
-	private:
-		SYSTEMTIME startTime_;
-	};
-
-#elif defined _LINUX
-
-	class StopWatchImpl {
-	public:
-		StopWatchImpl()
-		{
-			::clock_gettime(CLOCK_MONOTONIC_RAW, &startTime_);
-		}
-
-		double seconds()
-		{
-			struct timespec nowTime;
-			::clock_gettime(CLOCK_MONOTONIC_RAW, &nowTime);
-
-			const long long start = (startTime_.tv_sec * 1000) + (startTime_.tv_nsec / 1000000);
-			const long long now = (nowTime.tv_sec * 1000) + (nowTime.tv_nsec / 1000000);
-			const long long span = now - start;
-
-			const double seconds = span / 1000.0;
-			return seconds;
-		}
-
-	private:
-		struct timespec startTime_;
-	};
-
-#elif defined _MACOS
-
-	class StopWatchImpl {
-	public:
-		StopWatchImpl()
-			: startTime_(::mach_absolute_time())
-		{
-
-		}
-
-		double seconds()
-		{
-			const uint64_t nowTime = ::mach_absolute_time();
-			const uint64_t span = nowTime - startTime_;
-			
-			mach_timebase_info_data_t sTimebaseInfo;
-			mach_timebase_info(&sTimebaseInfo);
-			
-			const double seconds = span * (sTimebaseInfo.numer / 1000000000.0) / sTimebaseInfo.denom;
-			return seconds;
-		}
-
-	private:
-		const uint64_t startTime_;
-	};
-
-
-#endif
-
-	StopWatch::StopWatch()
-		: pimpl_(new StopWatchImpl())
-	{
-
-	}
-
-	StopWatch::~StopWatch()
-	{
-
-	}
-
+	StopWatch::StopWatch() 
+		: start_ { std::chrono::steady_clock::now() }
+	{ }
+	
 	double StopWatch::seconds() const
 	{
-		return pimpl_->seconds();
+		const auto end = std::chrono::steady_clock::now();
+		const std::chrono::duration<double> diff = end - start_;
+		return diff.count();
 	}
 
 }; // namespace hashdb

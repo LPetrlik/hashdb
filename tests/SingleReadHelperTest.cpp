@@ -41,7 +41,7 @@ void SingleReadHelperTest::testSingleReadHelper()
 
 	std::string value("InitialValue");
 
-	boost::scoped_ptr<IReadBatch> singleRead(new SingleRead(expectedKey, expectedPartNum, value));
+	std::unique_ptr<IReadBatch> singleRead(new SingleRead(expectedKey, expectedPartNum, value));
 	TS_ASSERT(singleRead->setValueAt(0, expectedValue));
 
 	TS_ASSERT_EQUALS(singleRead->count(), 1U);
@@ -58,7 +58,7 @@ void SingleReadHelperTest::testSingleReadLargeValue()
 
 	std::string value("InitialValue");
 
-	boost::scoped_ptr<IReadBatch> singleRead(new SingleRead(expectedKey, expectedPartNum, value));
+	std::unique_ptr<IReadBatch> singleRead(new SingleRead(expectedKey, expectedPartNum, value));
 
 	std::istringstream is(expectedValue);
 	TS_ASSERT(singleRead->setLargeValueAt(0, is, expectedValue.size()));
